@@ -1,0 +1,87 @@
+media:
+  input: public/uploads
+  output: /uploads
+
+content:
+  - name: sessions
+    label: Sessions
+    type: collection
+    path: src/content/sessions
+    filename: '{fields.title}.md'
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: locationName
+        label: Location Name
+        type: string
+        required: true
+      - name: address
+        label: Address
+        type: string
+        required: true
+      - name: latitude
+        label: Latitude
+        type: number
+      - name: longitude
+        label: Longitude
+        type: number
+      - name: alerts
+        label: Alerts Line
+        type: text
+        required: true
+      - name: generalInfo
+        label: General Info Line
+        type: text
+        required: true
+      - name: recurrenceType
+        label: Recurrence Type
+        type: select
+        required: true
+        options:
+          values: [single, date-list, rrule]
+      - name: startDateTime
+        label: Start Date Time
+        type: date
+      - name: endDateTime
+        label: End Date Time
+        type: date
+      - name: occurrenceDates
+        label: Recurrence Dates
+        type: string
+        list: true
+        description: Enter ISO date/time values, one per row.
+      - name: recurrenceRule
+        label: RRULE
+        type: string
+        description: Example: FREQ=WEEKLY;BYDAY=TU;INTERVAL=1
+      - name: recurrenceUntil
+        label: Recurrence Until
+        type: date
+      - name: recurrenceCount
+        label: Recurrence Count
+        type: number
+      - name: exceptionDates
+        label: Exception Dates
+        type: string
+        list: true
+        description: ISO dates to skip, one per row.
+      - name: timezone
+        label: Timezone
+        type: string
+        default: America/New_York
+      - name: category
+        label: Category
+        type: select
+        options:
+          values: [irish-session, ceili, concert, workshop]
+      - name: description
+        label: Description
+        type: text
+      - name: draft
+        label: Draft
+        type: boolean
+      - name: body
+        label: Body
+        type: rich-text
