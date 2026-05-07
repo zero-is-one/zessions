@@ -14,23 +14,26 @@ export async function getStaticPaths() {
 
 const { session } = Astro.props as { session: any };
 const { Content } = await render(session);
+const displayTitle = session.data.title ?? session.data.locationName;
 
-function recurrenceSummary(): string {
-  const data = session.data;
-  if (data.recurrenceType === 'single') {
-    return 'Single-date session.';
-  }
-  if (data.recurrenceType === 'date-list') {
-    return `Specific dates (${data.occurrenceDates.length} listed).`;
-  }
-  return `Repeating schedule via RRULE: ${data.recurrenceRule ?? 'not set'}`;
+function formatTime(t: string): string {
+  const [hStr, mStr] = t.split(':');
+  let h = parseInt(hStr, 10);
+  const m = parseInt(mStr, 10);
+  const ampm = h < 12 || h === 0 ? 'am' : 'pm';
+  if (h === 0) h = 12;
+  else if (h > 12) h -= 12;
+  return m === 0 ? `${h}${ampm}` : `${h}:${mStr}${ampm}`;
 }
+
+const timeLabel = formatTime(session.data.startTime) +
+  (session.data.endTime ? ` – ${formatTime(session.data.endTime)}` : '');
 ---
 
-<BaseLayout title={`${session.data.title} | Zessions`} description={session.data.description ?? 'Irish session details'}>
+<BaseLayout title={`${displayTitle} | Zessions`} description={session.data.description ?? 'Irish session details'}>
   <article class="glass p-6 sm:p-8">
     <a class="text-sm font-semibold text-harbor hover:underline" href="/">← Back to sessions</a>
-    <h2 class="mt-3 font-display text-4xl text-peat">{session.data.title}</h2>
+    <h2 class="mt-3 font-display text-4xl text-peat">{displayTitle}</h2>
     <p class="mt-2 text-sm text-peat/70">{session.data.locationName}</p>
 
     <dl class="mt-6 grid gap-3 text-sm text-peat/85 sm:grid-cols-2">
@@ -39,20 +42,20 @@ function recurrenceSummary(): string {
         <dd>{session.data.address}</dd>
       </div>
       <div>
-        <dt class="font-semibold">Timezone</dt>
-        <dd>{session.data.timezone}</dd>
+        <dt class="font-semibold">Time</dt>
+        <dd>{timeLabel}</dd>
       </div>
       <div>
         <dt class="font-semibold">General info</dt>
         <dd>{session.data.generalInfo}</dd>
       </div>
-      <div class="sm:col-span-2">
-        <dt class="font-semibold">Recurrence</dt>
-        <dd>{recurrenceSummary()}</dd>
+      <div>
+        <dt class="font-semibold">Schedule</dt>
+        <dd>{session.data.schedule.charAt(0).toUpperCase() + session.data.schedule.slice(1)}</dd>
       </div>
       {session.data.alerts && session.data.alerts !== 'No alerts.' && (
         <div class="sm:col-span-2">
-          <div class="flex items-start gap-2 rounded-lg bg-red-600 px-4 py-3 text-sm font-medium text-white">
+          <div class="flex items-start gap-2 bg-red-600 px-4 py-3 text-sm font-medium text-white">
             <span class="mt-px shrink-0 text-base leading-none" aria-hidden="true">&#9888;</span>
             <span>{session.data.alerts}</span>
           </div>
@@ -69,7 +72,7 @@ function recurrenceSummary(): string {
         <div class="mb-3 flex items-center justify-between">
           <h3 class="font-display text-xl text-peat">Location</h3>
           <a
-            class="flex items-center gap-1.5 rounded-full bg-harbor px-4 py-1.5 text-sm font-semibold text-white hover:bg-harbor/90"
+            class="flex items-center gap-1.5 bg-harbor px-4 py-1.5 text-sm font-semibold text-white hover:bg-harbor/90"
             href={`https://www.google.com/maps/dir/?api=1&destination=${session.data.latitude},${session.data.longitude}`}
             target="_blank"
             rel="noopener noreferrer"
@@ -84,7 +87,7 @@ function recurrenceSummary(): string {
           client:only="react"
           lat={session.data.latitude}
           lng={session.data.longitude}
-          title={session.data.title}
+          title={displayTitle}
           locationName={session.data.locationName}
         />
       </div>

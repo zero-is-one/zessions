@@ -1,20 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
-import { addMonths } from 'date-fns';
 import SessionsTabs from '../components/SessionsTabs';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { expandSessionOccurrences } from '../lib/sessions';
+import { mapSessions } from '../lib/sessions';
 
-const sessions = (await getCollection('sessions')).filter((session: any) => !session.data.draft);
-const windowStart = new Date();
-const windowEnd = addMonths(windowStart, 6);
-const occurrences = expandSessionOccurrences(sessions, windowStart, windowEnd).map((item) => ({
-  ...item,
-  start: item.start.toISOString(),
-  end: item.end?.toISOString(),
-}));
+const allSessions = (await getCollection('sessions')).filter((session: any) => !session.data.draft);
+const sessions = mapSessions(allSessions);
 ---
 
 <BaseLayout title="Zessions | NYC Irish Sessions" description="Browse Irish sessions happening around New York.">
-  <SessionsTabs client:only="react" occurrences={occurrences} />
+  <SessionsTabs client:only="react" sessions={sessions} />
 </BaseLayout>

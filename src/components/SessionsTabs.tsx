@@ -1,95 +1,160 @@
-import { lazy, Suspense, useMemo, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 import SessionList from "./SessionList";
-import SessionCalendar from "./SessionCalendar";
-import type { UiOccurrence } from "./types";
+import type { Day, Schedule, TimeOfDay, UiSession } from "./types";
 
 const SessionMap = lazy(() => import("./SessionMap"));
 
-type TabKey = "list" | "calendar" | "map";
-
 interface Props {
-  occurrences: UiOccurrence[];
+  sessions: UiSession[];
 }
 
-function initialTab(): TabKey {
-  if (typeof window === "undefined") {
-    return "list";
-  }
+const SCHEDULES: { key: Schedule; label: string }[] = [
+  { key: "weekly", label: "Weekly" },
+  { key: "monthly", label: "Monthly" },
+  { key: "other", label: "Other" },
+];
 
-  const hash = window.location.hash.replace("#", "");
-  if (hash === "calendar" || hash === "map" || hash === "list") {
-    return hash;
-  }
-  return "list";
-}
+const DAYS: { key: Day; label: string }[] = [
+  { key: "monday", label: "Mon" },
+  { key: "tuesday", label: "Tue" },
+  { key: "wednesday", label: "Wed" },
+  { key: "thursday", label: "Thu" },
+  { key: "friday", label: "Fri" },
+  { key: "saturday", label: "Sat" },
+  { key: "sunday", label: "Sun" },
+];
 
-export default function SessionsTabs({ occurrences }: Props) {
-  const [activeTab, setActiveTab] = useState<TabKey>(initialTab);
+const TIMES_OF_DAY: { key: TimeOfDay; label: string }[] = [
+  { key: "afternoon", label: "Afternoon" },
+  { key: "evening", label: "Evening" },
+  { key: "late-night", label: "Late night" },
+];
 
-  const sorted = useMemo(
-    () =>
-      [...occurrences].sort(
-        (a, b) => Date.parse(a.start) - Date.parse(b.start),
-      ),
-    [occurrences],
+export default function SessionsTabs({ sessions }: Props) {
+  const [scheduleFilter, setScheduleFilter] = useState<Schedule | null>(null);
+  const [dayFilter, setDayFilter] = useState<Day | null>(null);
+  const [timeFilter, setTimeFilter] = useState<TimeOfDay | null>(null);
+  const [selectedSlug, setSelectedSlug] = useState<string | null>(
+    sessions[0]?.slug ?? null,
   );
 
-  function switchTab(tab: TabKey) {
-    setActiveTab(tab);
-    window.history.replaceState({}, "", `#${tab}`);
-  }
+  const filteredSessions = useMemo(
+    () =>
+      sessions.filter(
+        (item) =>
+          (scheduleFilter === null || item.schedule === scheduleFilter) &&
+          (dayFilter === null || item.day === dayFilter) &&
+          (timeFilter === null || item.timeOfDay === timeFilter),
+      ),
+    [sessions, scheduleFilter, dayFilter, timeFilter],
+  );
+
+  useEffect(() => {
+    if (!filteredSessions.length) {
+      setSelectedSlug(null);
+      return;
+    }
+    if (
+      !selectedSlug ||
+      !filteredSessions.some((item) => item.slug === selectedSlug)
+    ) {
+      setSelectedSlug(filteredSessions[0].slug);
+    }
+  }, [filteredSessions, selectedSlug]);
 
   return (
-    <section className="space-y-4">
-      <div
-        className="glass flex flex-wrap items-center gap-2 p-3"
-        role="tablist"
-        aria-label="Session views"
-      >
-        <button
-          type="button"
-          className="tab-button"
-          data-active={activeTab === "list"}
-          role="tab"
-          aria-selected={activeTab === "list"}
-          onClick={() => switchTab("list")}
-        >
-          Ongoing List
-        </button>
-        <button
-          type="button"
-          className="tab-button"
-          data-active={activeTab === "calendar"}
-          role="tab"
-          aria-selected={activeTab === "calendar"}
-          onClick={() => switchTab("calendar")}
-        >
-          Calendar
-        </button>
-        <button
-          type="button"
-          className="tab-button"
-          data-active={activeTab === "map"}
-          role="tab"
-          aria-selected={activeTab === "map"}
-          onClick={() => switchTab("map")}
-        >
-          Map
-        </button>
-      </div>
-
-      <div role="tabpanel" aria-live="polite">
-        {activeTab === "list" && <SessionList occurrences={sorted} />}
-        {activeTab === "calendar" && <SessionCalendar occurrences={sorted} />}
-        {activeTab === "map" && (
-          <Suspense
-            fallback={
-              <p className="glass p-6 text-sm text-peat/70">Loading map…</p>
+    <section className="flex h-full min-h-0 flex-col gap-2 overflow-hidden">
+      <div className="glass flex items-center gap-2 overflow-x-auto whitespace-nowrap p-2">
+        <h1 className="mr-2 flex-none font-display text-2xl leading-none text-peat sm:text-3xl">
+          Zessions
+        </h1>
+        <label className="flex flex-none items-center gap-1.5 text-sm text-peat/70">
+          <span className="font-semibold text-peat">Schedule</span>
+          <select
+            className="border border-lichen/50 bg-white/80 px-2 py-1 text-sm text-peat focus:outline-none"
+            value={scheduleFilter ?? ""}
+            onChange={(e) =>
+              setScheduleFilter((e.target.value as Schedule) || null)
             }
           >
-            <SessionMap occurrences={sorted} />
-          </Suspense>
+            <option value="">All</option>
+            {SCHEDULES.map(({ key, label }) => (
+              <option key={key} value={key}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex flex-none items-center gap-1.5 text-sm text-peat/70">
+          <span className="font-semibold text-peat">Day</span>
+          <select
+            className="border border-lichen/50 bg-white/80 px-2 py-1 text-sm text-peat focus:outline-none"
+            value={dayFilter ?? ""}
+            onChange={(e) => setDayFilter((e.target.value as Day) || null)}
+          >
+            <option value="">All</option>
+            {DAYS.map(({ key, label }) => (
+              <option key={key} value={key}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        <label className="flex flex-none items-center gap-1.5 text-sm text-peat/70">
+          <span className="font-semibold text-peat">Time</span>
+          <select
+            className="border border-lichen/50 bg-white/80 px-2 py-1 text-sm text-peat focus:outline-none"
+            value={timeFilter ?? ""}
+            onChange={(e) =>
+              setTimeFilter((e.target.value as TimeOfDay) || null)
+            }
+          >
+            <option value="">All</option>
+            {TIMES_OF_DAY.map(({ key, label }) => (
+              <option key={key} value={key}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </label>
+        {(scheduleFilter || dayFilter || timeFilter) && (
+          <button
+            type="button"
+            className="flex-none text-xs font-semibold text-peat/50 hover:text-peat"
+            onClick={() => {
+              setScheduleFilter(null);
+              setDayFilter(null);
+              setTimeFilter(null);
+            }}
+          >
+            Clear
+          </button>
         )}
+      </div>
+
+      <div className="grid min-h-0 flex-1 gap-3 xl:overflow-hidden xl:grid-cols-[minmax(23rem,34%)_1fr] xl:items-stretch">
+        <Suspense
+          fallback={
+            <p className="glass p-6 text-sm text-peat/70">Loading map…</p>
+          }
+        >
+          <div className="h-[56dvh] min-h-[320px] sm:h-[62dvh] xl:order-2 xl:h-full">
+            <SessionMap
+              sessions={filteredSessions}
+              selectedSlug={selectedSlug}
+              onSelectSession={setSelectedSlug}
+              className="h-full w-full"
+            />
+          </div>
+        </Suspense>
+        <div className="glass min-h-0 overflow-y-auto p-2 sm:p-3 xl:order-1">
+          <SessionList
+            sessions={filteredSessions}
+            selectedSlug={selectedSlug}
+            onSelectSession={setSelectedSlug}
+            className="space-y-1"
+          />
+        </div>
       </div>
     </section>
   );

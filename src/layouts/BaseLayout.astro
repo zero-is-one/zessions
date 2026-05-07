@@ -10,6 +10,14 @@ const {
   title = 'Zessions | NYC Irish Sessions',
   description = 'Find Irish sessions happening around New York City.',
 } = Astro.props;
+
+const isHome = Astro.url.pathname === '/';
+const mainClass = isHome
+  ? 'mx-auto flex h-dvh w-full flex-col overflow-hidden p-3 sm:p-4 lg:px-5'
+  : 'mx-auto w-full max-w-6xl px-4 pb-14 pt-8 sm:px-6 lg:px-8';
+const bodyClass = isHome ? 'overflow-hidden' : '';
+const headerWrapClass = isHome ? 'mb-3 animate-rise' : 'mb-8 animate-rise';
+const headerCardClass = isHome ? 'glass p-4 sm:p-5' : 'glass p-6 sm:p-8';
 ---
 
 <!doctype html>
@@ -20,17 +28,16 @@ const {
     <title>{title}</title>
     <meta name="description" content={description} />
   </head>
-  <body>
-    <main>
-      <header class="mb-8 animate-rise">
-        <div class="glass p-6 sm:p-8">
-          <p class="text-xs font-semibold uppercase tracking-[0.24em] text-harbor">New York Irish Music</p>
-          <h1 class="mt-3 font-display text-4xl leading-tight text-peat sm:text-5xl">Zessions</h1>
-          <p class="mt-3 max-w-3xl text-base text-peat/80 sm:text-lg">
-            Track sessions across NYC with date-aware recurrence, map locations, and quick alerts.
-          </p>
-        </div>
-      </header>
+  <body class={bodyClass}>
+    <main class={mainClass}>
+      {!isHome && (
+        <header class={headerWrapClass}>
+          <div class={headerCardClass}>
+            <p class="text-xs font-semibold uppercase tracking-[0.24em] text-harbor">New York Irish Music</p>
+            <h1 class="mt-3 font-display text-4xl leading-tight text-peat sm:text-5xl">Zessions</h1>
+          </div>
+        </header>
+      )}
       <slot />
     </main>
   </body>

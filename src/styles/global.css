@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap");
+@import "leaflet/dist/leaflet.css";
 
 @tailwind base;
 @tailwind components;
@@ -17,15 +18,15 @@ body {
 }
 
 main {
-  @apply mx-auto w-full max-w-6xl px-4 pb-14 pt-8 sm:px-6 lg:px-8;
+  @apply mx-auto w-full;
 }
 
 .glass {
-  @apply rounded-2xl border border-white/60 bg-white/70 shadow-soft backdrop-blur-sm;
+  @apply border border-white/60 bg-white/85;
 }
 
 .tab-button {
-  @apply rounded-full border border-transparent px-4 py-2 text-sm font-semibold tracking-wide text-peat/70 transition;
+  @apply border border-transparent px-4 py-2 text-sm font-semibold tracking-wide text-peat/70 transition;
 }
 
 .tab-button[data-active="true"] {
