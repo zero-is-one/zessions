@@ -9,15 +9,15 @@ interface Props {
   locationName: string;
 }
 
-const icon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
+const icon = new L.DivIcon({
+  html: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 8.25 12 18 12 18S24 20.25 24 12C24 5.373 18.627 0 12 0z" fill="#2d6a8f"/>
+    <circle cx="12" cy="12" r="5" fill="white"/>
+  </svg>`,
+  className: "",
+  iconSize: [24, 30],
+  iconAnchor: [12, 30],
+  popupAnchor: [0, -32],
 });
 
 function InvalidateSize() {
@@ -40,8 +40,8 @@ export default function DetailMap({ lat, lng, title, locationName }: Props) {
     >
       <InvalidateSize />
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+        url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
       />
       <Marker position={[lat, lng]} icon={icon}>
         <Popup>

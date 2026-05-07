@@ -25,6 +25,18 @@ main {
   @apply border border-white/60 bg-white/85;
 }
 
+/* Leaflet popup overrides */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15) !important;
+  padding: 0 !important;
+}
+.leaflet-popup-content {
+  margin: 14px 16px !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
 .tab-button {
   @apply border border-transparent px-4 py-2 text-sm font-semibold tracking-wide text-peat/70 transition;
 }

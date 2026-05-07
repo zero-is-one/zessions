@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
+import { DAY_COLOR_HEX, DAY_SHORT_LABELS } from "./dayMeta";
 import SessionList from "./SessionList";
 import type { Day, Schedule, TimeOfDay, UiSession } from "./types";
 
@@ -15,13 +16,13 @@ const SCHEDULES: { key: Schedule; label: string }[] = [
 ];
 
 const DAYS: { key: Day; label: string }[] = [
-  { key: "monday", label: "Mon" },
-  { key: "tuesday", label: "Tue" },
-  { key: "wednesday", label: "Wed" },
-  { key: "thursday", label: "Thu" },
-  { key: "friday", label: "Fri" },
-  { key: "saturday", label: "Sat" },
-  { key: "sunday", label: "Sun" },
+  { key: "monday", label: DAY_SHORT_LABELS.monday },
+  { key: "tuesday", label: DAY_SHORT_LABELS.tuesday },
+  { key: "wednesday", label: DAY_SHORT_LABELS.wednesday },
+  { key: "thursday", label: DAY_SHORT_LABELS.thursday },
+  { key: "friday", label: DAY_SHORT_LABELS.friday },
+  { key: "saturday", label: DAY_SHORT_LABELS.saturday },
+  { key: "sunday", label: DAY_SHORT_LABELS.sunday },
 ];
 
 const TIMES_OF_DAY: { key: TimeOfDay; label: string }[] = [
@@ -91,10 +92,19 @@ export default function SessionsTabs({ sessions }: Props) {
             className="border border-lichen/50 bg-white/80 px-2 py-1 text-sm text-peat focus:outline-none"
             value={dayFilter ?? ""}
             onChange={(e) => setDayFilter((e.target.value as Day) || null)}
+            style={
+              dayFilter
+                ? { color: DAY_COLOR_HEX[dayFilter], fontWeight: 700 }
+                : undefined
+            }
           >
             <option value="">All</option>
             {DAYS.map(({ key, label }) => (
-              <option key={key} value={key}>
+              <option
+                key={key}
+                value={key}
+                style={{ color: DAY_COLOR_HEX[key] }}
+              >
                 {label}
               </option>
             ))}

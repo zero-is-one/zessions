@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { DAY_COLOR_HEX, DAY_LABELS, DAY_TEXT_CLASS } from "./dayMeta";
 import type { UiSession } from "./types";
 
 interface Props {
@@ -29,16 +30,6 @@ const DAY_ORDER = [
 ] as const;
 
 const SCHEDULE_ORDER = ["weekly", "monthly", "other"] as const;
-
-const DAY_LABELS: Record<(typeof DAY_ORDER)[number], string> = {
-  monday: "Mon.",
-  tuesday: "Tue.",
-  wednesday: "Wed.",
-  thursday: "Thu.",
-  friday: "Fri.",
-  saturday: "Sat.",
-  sunday: "Sun.",
-};
 
 export default function SessionList({
   sessions,
@@ -94,10 +85,10 @@ export default function SessionList({
           itemRefs.current[item.slug] = node;
         }}
         type="button"
-        className={`w-full border px-3 py-2 text-left text-sm transition ${
+        className={`w-full border-b border-peat/10 border-l-4 px-2.5 py-2 text-left text-sm transition ${
           selectedSlug === item.slug
-            ? "border-lichen bg-lichen/15 ring-1 ring-lichen/60"
-            : "border-transparent bg-white/70 hover:border-lichen/60"
+            ? "border-l-lichen bg-white/70"
+            : "border-l-transparent bg-transparent hover:bg-white/45"
         }`}
         onClick={() => onSelectSession?.(item.slug)}
       >
@@ -108,7 +99,9 @@ export default function SessionList({
           {item.day && (
             <>
               <span className="text-peat/40">-</span>
-              <span className="text-peat/75">{DAY_LABELS[item.day]}</span>
+              <span className={`font-semibold ${DAY_TEXT_CLASS[item.day]}`}>
+                {DAY_LABELS[item.day]}
+              </span>
             </>
           )}
           <span className="text-peat/40">-</span>
@@ -122,10 +115,16 @@ export default function SessionList({
   }
 
   return (
-    <section className={className ?? "space-y-3"} aria-label="Session list">
-      {groupedByDay.map((group) => (
-        <div key={group.day} className="space-y-1">
-          <h3 className="px-1 text-xs font-semibold uppercase tracking-wide text-peat/60">
+    <section className={className ?? "space-y-4"} aria-label="Session list">
+      {groupedByDay.map((group, index) => (
+        <div
+          key={group.day}
+          className={`space-y-1 ${index > 0 ? "pt-3" : ""}`}
+        >
+          <h3
+            className={`px-2 py-1 text-xs font-bold uppercase tracking-[0.12em] ${DAY_TEXT_CLASS[group.day]}`}
+            style={{ backgroundColor: `${DAY_COLOR_HEX[group.day]}14` }}
+          >
             {DAY_LABELS[group.day]}
           </h3>
           {group.items.map((item) => renderRow(item))}
@@ -133,8 +132,8 @@ export default function SessionList({
       ))}
 
       {noDayItems.length > 0 && (
-        <div className="space-y-1">
-          <h3 className="px-1 text-xs font-semibold uppercase tracking-wide text-peat/60">
+        <div className="space-y-1 pt-3">
+          <h3 className="bg-peat/10 px-2 py-1 text-xs font-bold uppercase tracking-[0.12em] text-peat">
             Other
           </h3>
           {noDayItems.map((item) => renderRow(item))}

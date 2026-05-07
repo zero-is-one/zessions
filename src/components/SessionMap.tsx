@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
+import { DAY_LABELS, DAY_TEXT_CLASS } from "./dayMeta";
 import type { UiSession } from "./types";
 
 interface Props {
@@ -20,16 +21,22 @@ function formatTime(t: string): string {
   return m === 0 ? `${h}${ampm}` : `${h}:${mStr}${ampm}`;
 }
 
-const defaultIcon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  iconRetinaUrl:
-    "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
-});
+function makeIcon(selected: boolean) {
+  const color = selected ? "#4a7c59" : "#2d6a8f";
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30">
+    <path d="M12 0C5.373 0 0 5.373 0 12c0 8.25 12 18 12 18S24 20.25 24 12C24 5.373 18.627 0 12 0z" fill="${color}"/>
+    <circle cx="12" cy="12" r="5" fill="white"/>
+  </svg>`;
+  return new L.DivIcon({
+    html: svg,
+    className: "",
+    iconSize: [24, 30],
+    iconAnchor: [12, 30],
+    popupAnchor: [0, -32],
+  });
+}
+
+const defaultIcon = makeIcon(false);
 
 function InvalidateSize() {
   const map = useMap();
@@ -113,14 +120,14 @@ export default function SessionMap({
           <InvalidateSize />
           <FlyToSelected selected={selectedSession} />
           <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
           {mapItems.map((item) => (
             <Marker
               key={item.slug}
               position={[item.latitude as number, item.longitude as number]}
-              icon={defaultIcon}
+              icon={makeIcon(item.slug === selectedSlug)}
               ref={(marker) => {
                 markerRefs.current[item.slug] = marker;
               }}
@@ -133,19 +140,28 @@ export default function SessionMap({
                 },
               }}
             >
-              <Popup>
-                <div className="space-y-1">
-                  <p className="font-semibold">{item.title}</p>
-                  <p>{item.locationName}</p>
-                  <p>
+              <Popup minWidth={240} maxWidth={300}>
+                <div className="space-y-2 py-1">
+                  <p className="text-base font-bold leading-tight text-gray-900">
+                    {item.title}
+                  </p>
+                  <p className="text-sm text-gray-600">{item.locationName}</p>
+                  <p className="text-sm text-gray-700">
                     {formatTime(item.startTime)}
                     {item.endTime ? ` – ${formatTime(item.endTime)}` : ""}
                     {" · "}
                     {item.schedule.charAt(0).toUpperCase() +
                       item.schedule.slice(1)}
-                    {item.day
-                      ? ` · ${item.day.charAt(0).toUpperCase() + item.day.slice(1)}s`
-                      : ""}
+                    {item.day && (
+                      <>
+                        {" · "}
+                        <span
+                          className={`font-semibold ${DAY_TEXT_CLASS[item.day]}`}
+                        >
+                          {DAY_LABELS[item.day]}
+                        </span>
+                      </>
+                    )}
                   </p>
                   {item.alerts && item.alerts !== "No alerts." && (
                     <p className="flex items-start gap-1 bg-red-600 px-2 py-1 text-xs font-medium text-white">
@@ -153,10 +169,13 @@ export default function SessionMap({
                       <span>{item.alerts}</span>
                     </p>
                   )}
-                  <p>
-                    <strong>Info:</strong> {item.generalInfo}
-                  </p>
-                  <a href={`/sessions/${item.slug}/`}>Open details</a>
+                  <p className="text-sm text-gray-700">{item.generalInfo}</p>
+                  <a
+                    href={`/sessions/${item.slug}/`}
+                    className="mt-1 inline-block text-sm font-semibold text-blue-600 underline-offset-2 hover:underline"
+                  >
+                    Open details →
+                  </a>
                 </div>
               </Popup>
             </Marker>
