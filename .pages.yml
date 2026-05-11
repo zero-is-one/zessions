@@ -7,7 +7,7 @@ content:
     label: Sessions
     type: collection
     path: src/content/sessions
-    filename: '{fields.title}.md'
+    filename: "{fields.title}.md"
     fields:
       - name: title
         label: Title
@@ -47,26 +47,6 @@ content:
       - name: endDateTime
         label: End Date Time
         type: date
-      - name: occurrenceDates
-        label: Recurrence Dates
-        type: string
-        list: true
-        description: Enter ISO date/time values, one per row.
-      - name: recurrenceRule
-        label: RRULE
-        type: string
-        description: Example: FREQ=WEEKLY;BYDAY=TU;INTERVAL=1
-      - name: recurrenceUntil
-        label: Recurrence Until
-        type: date
-      - name: recurrenceCount
-        label: Recurrence Count
-        type: number
-      - name: exceptionDates
-        label: Exception Dates
-        type: string
-        list: true
-        description: ISO dates to skip, one per row.
       - name: timezone
         label: Timezone
         type: string

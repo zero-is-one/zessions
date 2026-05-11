@@ -47,7 +47,13 @@ function InvalidateSize() {
   return null;
 }
 
-function FlyToSelected({ selected }: { selected?: UiSession }) {
+function FlyToSelected({
+  selected,
+  defaultCenter,
+}: {
+  selected?: UiSession;
+  defaultCenter: [number, number];
+}) {
   const map = useMap();
 
   useEffect(() => {
@@ -56,6 +62,13 @@ function FlyToSelected({ selected }: { selected?: UiSession }) {
       typeof selected.latitude !== "number" ||
       typeof selected.longitude !== "number"
     ) {
+      // If no selection, fly back to default
+      if (!selected) {
+        map.flyTo(defaultCenter, 11, {
+          animate: true,
+          duration: 0.35,
+        });
+      }
       return;
     }
     const nextZoom = Math.max(map.getZoom(), 13);
@@ -63,7 +76,7 @@ function FlyToSelected({ selected }: { selected?: UiSession }) {
       animate: true,
       duration: 0.35,
     });
-  }, [map, selected]);
+  }, [map, selected, defaultCenter]);
 
   return null;
 }
@@ -92,10 +105,22 @@ export default function SessionMap({
   );
 
   useEffect(() => {
-    if (!selectedSlug) return;
-    const marker = markerRefs.current[selectedSlug];
-    if (marker) {
-      marker.openPopup();
+    // Small delay to ensure marker is mounted and ready
+    if (selectedSlug) {
+      const timer = setTimeout(() => {
+        const marker = markerRefs.current[selectedSlug];
+        if (marker) {
+          marker.openPopup();
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    } else {
+      // Close all popups when nothing is selected
+      Object.values(markerRefs.current).forEach((marker) => {
+        if (marker) {
+          marker.closePopup();
+        }
+      });
     }
   }, [selectedSlug, mapItems]);
 
@@ -118,7 +143,7 @@ export default function SessionMap({
           className={className ?? "h-full w-full"}
         >
           <InvalidateSize />
-          <FlyToSelected selected={selectedSession} />
+          <FlyToSelected selected={selectedSession} defaultCenter={center} />
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>'
             url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"

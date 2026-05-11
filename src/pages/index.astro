@@ -8,6 +8,6 @@ const allSessions = (await getCollection('sessions')).filter((session: any) => !
 const sessions = mapSessions(allSessions);
 ---
 
-<BaseLayout title="Zessions | NYC Irish Sessions" description="Browse Irish sessions happening around New York.">
+<BaseLayout title="Find A Session NYC" description="Browse Irish sessions happening around New York.">
   <SessionsTabs client:only="react" sessions={sessions} />
 </BaseLayout>
