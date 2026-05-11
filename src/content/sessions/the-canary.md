@@ -1,6 +1,7 @@
 ---
 locationName: "The Canary"
 address: "301 E 12th St, New York, NY 10003"
+googleMapsLink: "https://www.google.com/maps/search/?api=1&query=The+Canary+NYC"
 latitude: 40.73031
 longitude: -73.98592
 alerts: "No alerts."

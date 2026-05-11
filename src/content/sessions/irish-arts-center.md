@@ -1,6 +1,7 @@
 ---
 locationName: "Irish Arts Center"
 address: "726 11th Ave, New York, NY 10019"
+googleMapsLink: "https://www.google.com/maps/search/?api=1&query=Irish+Arts+Center+NYC"
 latitude: 40.76562
 longitude: -73.99361
 alerts: "No alerts."

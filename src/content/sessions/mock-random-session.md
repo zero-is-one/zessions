@@ -1,6 +1,7 @@
 ---
 locationName: "Mock Random Session Lab"
 address: "123 Demo Ave, New York, NY 10010"
+googleMapsLink: "https://www.google.com/maps/search/?api=1&query=Mock+Random+Session+Lab+NYC"
 latitude: 40.7412
 longitude: -73.9896
 alerts: "No alerts."

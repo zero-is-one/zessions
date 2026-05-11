@@ -218,6 +218,21 @@ export default function SessionsTabs({ sessions }: Props) {
               }}
               className="space-y-1"
             />
+            <div className="mt-4 text-center text-xs text-peat/70 pb-4">
+              <p className="leading-relaxed">
+                We try our best to compile all the NYC sessions. For the latest,
+                visit the{" "}
+                <a
+                  href="https://www.facebook.com/groups/NYSessionHub"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-lichen hover:text-lichen/80 underline"
+                >
+                  NYC Sessions Facebook group
+                </a>
+                .
+              </p>
+            </div>
           </div>
         </div>
       </section>

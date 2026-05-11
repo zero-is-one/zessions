@@ -79,11 +79,6 @@ export default function SessionList({
   const noDayItems = sessions.filter((item) => !item.day).sort(sortSessions);
 
   function renderRow(item: UiSession) {
-    const directionsUrl =
-      item.latitude && item.longitude
-        ? `https://www.google.com/maps?q=${item.latitude},${item.longitude}`
-        : `https://www.google.com/maps/search/${encodeURIComponent(item.address)}`;
-
     const handleCopyLink = async () => {
       const sessionUrl = `${window.location.origin}${window.location.pathname}?session=${item.slug}`;
       try {
@@ -134,7 +129,10 @@ export default function SessionList({
           </div>
         </button>
         <a
-          href={directionsUrl}
+          href={
+            item.googleMapsLink ||
+            `https://www.google.com/maps/search/${encodeURIComponent(item.address)}`
+          }
           target="_blank"
           rel="noopener noreferrer"
           className="flex-none inline-flex items-center gap-1 px-2.5 py-2 text-lichen hover:text-lichen/80 transition"

@@ -7,6 +7,7 @@ const sessions = defineCollection({
     title: z.string().min(1).optional(),
     locationName: z.string().min(1),
     address: z.string().min(1),
+    googleMapsLink: z.string().optional(),
     latitude: z.number().optional(),
     longitude: z.number().optional(),
     description: z.string().optional(),

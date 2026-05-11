@@ -1,6 +1,7 @@
 ---
 locationName: "Copper Kettle"
 address: "50-24 Skillman Ave, Woodside, NY 11377"
+googleMapsLink: "https://www.google.com/maps/search/?api=1&query=Copper+Kettle+Woodside+NY"
 latitude: 40.74415
 longitude: -73.91353
 alerts: "No alerts."

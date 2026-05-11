@@ -14,6 +14,7 @@ export interface UiSession {
   title?: string;
   locationName: string;
   address: string;
+  googleMapsLink?: string;
   latitude?: number;
   longitude?: number;
   alerts: string;

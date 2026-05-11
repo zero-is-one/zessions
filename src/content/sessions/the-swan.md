@@ -1,6 +1,7 @@
 ---
 locationName: "The Swan"
 address: "301 E 12th St, New York, NY 10003"
+googleMapsLink: "https://www.google.com/maps/search/?api=1&query=The+Swan+NYC+12th+St"
 latitude: 40.73031
 longitude: -73.98512
 alerts: "No alerts."

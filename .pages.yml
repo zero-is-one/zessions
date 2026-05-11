@@ -21,6 +21,10 @@ content:
         label: Address
         type: string
         required: true
+      - name: googleMapsLink
+        label: Google Maps Link
+        type: string
+        required: false
       - name: latitude
         label: Latitude
         type: number
@@ -32,9 +36,9 @@ content:
         type: text
         required: true
       - name: generalInfo
-        label: General Info Line
-        type: text
-        required: true
+        label: General Info
+        type: rich-text
+        required: false
       - name: recurrenceType
         label: Recurrence Type
         type: select

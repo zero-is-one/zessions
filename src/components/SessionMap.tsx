@@ -173,6 +173,19 @@ export default function SessionMap({
                   {item.title && item.title !== item.locationName && (
                     <p className="text-sm text-gray-600">{item.locationName}</p>
                   )}
+                  {item.address && (
+                    <a
+                      href={
+                        item.googleMapsLink ||
+                        `https://www.google.com/maps/search/${encodeURIComponent(item.address)}`
+                      }
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block text-sm text-blue-600 hover:underline"
+                    >
+                      {item.address}
+                    </a>
+                  )}
                   <p className="text-sm text-gray-700">
                     {formatTime(item.startTime)}
                     {item.endTime ? ` – ${formatTime(item.endTime)}` : ""}
@@ -196,13 +209,9 @@ export default function SessionMap({
                       <span>{item.alerts}</span>
                     </p>
                   )}
-                  <p className="text-sm text-gray-700">{item.generalInfo}</p>
-                  <a
-                    href={`/sessions/${item.slug}/`}
-                    className="mt-1 inline-block text-sm font-semibold text-blue-600 underline-offset-2 hover:underline"
-                  >
-                    Open details →
-                  </a>
+                  {item.generalInfo && (
+                    <p className="text-sm text-gray-700">{item.generalInfo}</p>
+                  )}
                 </div>
               </Popup>
             </Marker>

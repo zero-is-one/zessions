@@ -21,6 +21,7 @@ export function mapSessions(sessions: SessionEntry[]): UiSession[] {
       title: session.data.title ?? session.data.locationName,
       locationName: session.data.locationName,
       address: session.data.address,
+      googleMapsLink: session.data.googleMapsLink,
       latitude: session.data.latitude,
       longitude: session.data.longitude,
       alerts: session.data.alerts,
