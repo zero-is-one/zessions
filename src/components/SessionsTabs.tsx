@@ -405,29 +405,14 @@ export default function SessionsTabs({ sessions }: Props) {
                 </div>
 
                 <div className="space-y-4 text-sm text-peat/80 leading-relaxed">
-                  <p>
-                    <strong>Find A Session NYC</strong> is your guide to Irish
-                    traditional music sessions happening around New York City.
-                  </p>
+                  <p>Made by...</p>
+                  <p>Spotify link blah blach </p>
                   <p>
                     Discover weekly sessions at bars and cultural centers
                     featuring authentic Irish music, from slow sessions perfect
                     for beginners to lively traditional sets.
                   </p>
-                  <div>
-                    <p className="font-semibold text-peat mb-2">How to Use:</p>
-                    <ul className="space-y-1 list-disc list-inside">
-                      <li>
-                        Browse all sessions or use filters by schedule, day, and
-                        time
-                      </li>
-                      <li>
-                        Click on a session to see details and location on the
-                        map
-                      </li>
-                      <li>Find the nearest sessions to you</li>
-                    </ul>
-                  </div>
+
                   <p className="pt-2 text-xs text-peat/60">
                     Made with ♪ for the Irish music community
                   </p>
