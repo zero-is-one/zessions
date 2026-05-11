@@ -1,10 +1,9 @@
 ---
 locationName: "The Swan"
-address: "New York, NY"
-latitude: 40.7303
-longitude: -73.9851
+address: "301 E 12th St, New York, NY 10003"
+latitude: 40.73031
+longitude: -73.98512
 alerts: "No alerts."
-generalInfo: "Weekly Tuesday session, 7–9pm."
 startTime: "19:00"
 endTime: "21:00"
 schedule: "weekly"

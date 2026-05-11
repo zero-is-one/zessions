@@ -1,10 +1,9 @@
 ---
 locationName: "The Wicked Monk"
-address: "New York, NY"
-latitude: 40.6186
-longitude: -74.0321
+address: "9510 3rd Ave, Brooklyn, NY 11209"
+latitude: 40.61632
+longitude: -74.03211
 alerts: "May have seasonal breaks — check ahead before visiting."
-generalInfo: "Weekly Sunday session, 5–8pm."
 startTime: "17:00"
 endTime: "20:00"
 schedule: "weekly"

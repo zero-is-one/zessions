@@ -1,10 +1,9 @@
 ---
 locationName: "Mary O's"
-address: "New York, NY"
-latitude: 40.7262
-longitude: -73.9851
+address: "32 Avenue A, New York, NY 10009"
+latitude: 40.72332
+longitude: -73.98402
 alerts: "$15 donation requested."
-generalInfo: "Weekly Wednesday session, 8–10pm."
 startTime: "20:00"
 endTime: "22:00"
 schedule: "weekly"

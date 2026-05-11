@@ -1,10 +1,9 @@
 ---
 locationName: "The Clonard"
-address: "New York, NY"
-latitude: 40.7208
-longitude: -73.9515
+address: "506 Grand St, Brooklyn, NY 11211"
+latitude: 40.71182
+longitude: -73.95151
 alerts: "No alerts."
-generalInfo: "Weekly Wednesday session from 8:30pm."
 startTime: "20:30"
 schedule: "weekly"
 day: "wednesday"

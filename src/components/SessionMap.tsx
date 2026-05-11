@@ -168,9 +168,11 @@ export default function SessionMap({
               <Popup minWidth={240} maxWidth={300}>
                 <div className="space-y-2 py-1">
                   <p className="text-base font-bold leading-tight text-gray-900">
-                    {item.title}
+                    {item.title || item.locationName}
                   </p>
-                  <p className="text-sm text-gray-600">{item.locationName}</p>
+                  {item.title && item.title !== item.locationName && (
+                    <p className="text-sm text-gray-600">{item.locationName}</p>
+                  )}
                   <p className="text-sm text-gray-700">
                     {formatTime(item.startTime)}
                     {item.endTime ? ` – ${formatTime(item.endTime)}` : ""}

@@ -1,10 +1,9 @@
 ---
-locationName: "The Wheeltapper"
-address: "New York, NY"
-latitude: 40.7523
-longitude: -73.9749
+locationName: "The Wheeltapper Pub"
+address: "141 E 44th St, New York, NY 10017"
+latitude: 40.75232
+longitude: -73.97491
 alerts: "No alerts."
-generalInfo: "Weekly Tuesday session, 7:30–10:30pm."
 startTime: "19:30"
 endTime: "22:30"
 schedule: "weekly"

@@ -1,8 +1,8 @@
 ---
 locationName: "Iona"
-address: "New York, NY"
-latitude: 40.7163
-longitude: -73.9587
+address: "180 Grand St, Brooklyn, NY 11211"
+latitude: 40.71631
+longitude: -73.95874
 alerts: "No alerts."
 generalInfo: "Scottish session, weekly Monday 9pm–midnight."
 startTime: "21:00"

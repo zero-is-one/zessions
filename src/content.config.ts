@@ -11,9 +11,7 @@ const sessions = defineCollection({
     longitude: z.number().optional(),
     description: z.string().optional(),
     alerts: z.string().default("No alerts."),
-    generalInfo: z
-      .string()
-      .default("Bring your instrument and join respectfully."),
+    generalInfo: z.string().default(""),
     startTime: z.string(),
     endTime: z.string().optional(),
     schedule: z.enum(["weekly", "monthly", "other"]),

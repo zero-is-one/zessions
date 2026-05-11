@@ -1,10 +1,9 @@
 ---
 locationName: "The Laurels"
-address: "New York, NY"
-latitude: 40.7571
-longitude: -73.8294
+address: "40-19 159th St, Flushing, NY 11358"
+latitude: 40.75972
+longitude: -73.80621
 alerts: "No alerts."
-generalInfo: "Weekly Sunday session, 7–9:30pm."
 startTime: "19:00"
 endTime: "21:30"
 schedule: "weekly"

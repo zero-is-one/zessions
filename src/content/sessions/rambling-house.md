@@ -1,10 +1,9 @@
 ---
 locationName: "Rambling House"
-address: "New York, NY"
-latitude: 40.9135
-longitude: -73.8679
+address: "4292 Katonah Ave, Bronx, NY 10470"
+latitude: 40.90042
+longitude: -73.86791
 alerts: "Start time not confirmed — check ahead before visiting."
-generalInfo: "Weekly Friday session."
 startTime: "20:00"
 schedule: "weekly"
 day: "friday"

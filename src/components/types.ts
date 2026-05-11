@@ -11,7 +11,7 @@ export type TimeOfDay = "afternoon" | "evening" | "late-night";
 
 export interface UiSession {
   slug: string;
-  title: string;
+  title?: string;
   locationName: string;
   address: string;
   latitude?: number;

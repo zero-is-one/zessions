@@ -1,10 +1,9 @@
 ---
-locationName: "Paddy's Park Slope"
-address: "New York, NY"
-latitude: 40.6723
-longitude: -73.9880
+locationName: "Paddy's of Park Slope"
+address: "273 13th St, Brooklyn, NY 11215"
+latitude: 40.67022
+longitude: -73.98801
 alerts: "No alerts."
-generalInfo: "Monthly session on the 2nd Wednesday from 8pm until close."
 startTime: "20:00"
 schedule: "monthly"
 day: "wednesday"

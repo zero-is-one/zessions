@@ -1,10 +1,9 @@
 ---
 locationName: "11th St. Bar"
-address: "New York, NY"
-latitude: 40.7291
-longitude: -73.9840
+address: "510 E 11th St, New York, NY 10009"
+latitude: 40.72911
+longitude: -73.98402
 alerts: "Professional session — invite only."
-generalInfo: "Weekly Sunday session from 9pm."
 startTime: "21:00"
 endTime: "23:00"
 schedule: "weekly"

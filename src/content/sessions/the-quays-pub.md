@@ -1,10 +1,9 @@
 ---
 locationName: "The Quays Pub"
-address: "New York, NY"
-latitude: 40.7712
-longitude: -73.9126
+address: "45-02 30th Ave, Astoria, NY 11103"
+latitude: 40.76342
+longitude: -73.91261
 alerts: "Check schedule — times vary each week."
-generalInfo: "Weekly Monday session."
 startTime: "20:00"
 schedule: "weekly"
 day: "monday"

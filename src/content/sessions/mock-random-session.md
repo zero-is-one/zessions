@@ -1,6 +1,6 @@
 ---
 locationName: "Mock Random Session Lab"
-address: "123 Demo Ave, New York, NY"
+address: "123 Demo Ave, New York, NY 10010"
 latitude: 40.7412
 longitude: -73.9896
 alerts: "No alerts."

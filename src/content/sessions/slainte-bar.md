@@ -1,10 +1,9 @@
 ---
-locationName: "Sláinte Bar"
-address: "New York, NY"
-latitude: 40.7258
-longitude: -73.9912
+locationName: "Sláinte Bar and Lounge"
+address: "304 Bowery, New York, NY 10012"
+latitude: 40.72582
+longitude: -73.99221
 alerts: "May be cancelled for sports events."
-generalInfo: "Weekly Tuesday session, 8–11pm."
 startTime: "20:00"
 endTime: "23:00"
 schedule: "weekly"

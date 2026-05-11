@@ -1,10 +1,9 @@
 ---
 locationName: "Rullo's"
-address: "New York, NY"
-latitude: 40.6724
-longitude: -73.9877
+address: "197 5th Ave, Brooklyn, NY 11217"
+latitude: 40.67642
+longitude: -73.98061
 alerts: "No alerts."
-generalInfo: "Monthly session on the 2nd and last Sundays, 3–5pm."
 startTime: "15:00"
 endTime: "17:00"
 schedule: "monthly"

@@ -1,10 +1,9 @@
 ---
 locationName: "Hartley's"
-address: "New York, NY"
-latitude: 40.6841
-longitude: -73.9634
+address: "415 Putnam Ave, Brooklyn, NY 11216"
+latitude: 40.68412
+longitude: -73.94585
 alerts: "No alerts."
-generalInfo: "Weekly Monday session from 8pm."
 startTime: "20:00"
 schedule: "weekly"
 day: "monday"

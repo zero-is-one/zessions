@@ -1,10 +1,9 @@
 ---
 locationName: "Grace's"
-address: "New York, NY"
-latitude: 40.7423
-longitude: -74.0016
+address: "252 W 14th St, New York, NY 10011"
+latitude: 40.73915
+longitude: -74.00163
 alerts: "No alerts."
-generalInfo: "Weekly Tuesday session from 8pm."
 startTime: "20:00"
 schedule: "weekly"
 day: "tuesday"

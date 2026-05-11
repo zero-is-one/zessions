@@ -1,8 +1,8 @@
 ---
 locationName: "Copper Kettle"
-address: "New York, NY"
-latitude: 40.7441
-longitude: -73.9083
+address: "50-24 Skillman Ave, Woodside, NY 11377"
+latitude: 40.74415
+longitude: -73.91353
 alerts: "No alerts."
 generalInfo: "Singing session, weekly Tuesday 7–10:30pm."
 startTime: "19:00"

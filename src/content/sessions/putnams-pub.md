@@ -1,10 +1,9 @@
 ---
-locationName: "Putnam's Pub"
-address: "New York, NY"
-latitude: 40.6896
-longitude: -73.9639
+locationName: "Putnam's Pub & Cooker"
+address: "419 Myrtle Ave, Brooklyn, NY 11205"
+latitude: 40.69342
+longitude: -73.96391
 alerts: "No alerts."
-generalInfo: "Weekly Tuesday session, 8–11pm."
 startTime: "20:00"
 endTime: "23:00"
 schedule: "weekly"

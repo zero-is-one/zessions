@@ -12,7 +12,7 @@ content:
       - name: title
         label: Title
         type: string
-        required: true
+        required: false
       - name: locationName
         label: Location Name
         type: string

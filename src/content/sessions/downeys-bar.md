@@ -1,10 +1,9 @@
 ---
 locationName: "Downey's Bar"
-address: "New York, NY"
-latitude: 40.9080
-longitude: -73.8966
+address: "5790 Mosholu Ave, Bronx, NY 10471"
+latitude: 40.90801
+longitude: -73.89665
 alerts: "No alerts."
-generalInfo: "Weekly Tuesday session, 6–9pm."
 startTime: "18:00"
 endTime: "21:00"
 schedule: "weekly"

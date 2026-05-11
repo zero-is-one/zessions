@@ -1,10 +1,9 @@
 ---
 locationName: "The Landmark Tavern"
-address: "New York, NY"
-latitude: 40.7656
-longitude: -73.9972
+address: "626 11th Ave, New York, NY 10036"
+latitude: 40.76562
+longitude: -73.99721
 alerts: "No alerts."
-generalInfo: "Weekly Monday session, 8–10:30pm."
 startTime: "20:00"
 endTime: "22:30"
 schedule: "weekly"

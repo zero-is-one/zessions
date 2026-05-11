@@ -1,10 +1,9 @@
 ---
 locationName: "Freddy's Bar"
-address: "New York, NY"
-latitude: 40.6687
-longitude: -73.9934
+address: "627 5th Ave, Brooklyn, NY 11215"
+latitude: 40.66874
+longitude: -73.99342
 alerts: "No alerts."
-generalInfo: "Monthly session on the 4th Sunday, 3–6pm."
 startTime: "15:00"
 endTime: "18:00"
 schedule: "monthly"

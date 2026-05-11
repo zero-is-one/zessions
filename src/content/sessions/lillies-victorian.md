@@ -1,10 +1,9 @@
 ---
-locationName: "Lillie's Victorian"
-address: "New York, NY"
-latitude: 40.7410
-longitude: -73.9915
+locationName: "Lillie's Victorian Establishment"
+address: "13 E 17th St, New York, NY 10003"
+latitude: 40.73735
+longitude: -73.99151
 alerts: "No alerts."
-generalInfo: "Weekly Monday session, 7–9:30pm."
 startTime: "19:00"
 endTime: "21:30"
 schedule: "weekly"
