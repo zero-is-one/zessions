@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { DAY_LABELS, DAY_TEXT_CLASS } from "./dayMeta";
+import { CheckIcon, DirectionsIcon, getMapPinSvg, LinkIcon } from "./icons";
 import type { UiSession } from "./types";
 
 interface Props {
@@ -23,10 +24,7 @@ function formatTime(t: string): string {
 
 function makeIcon(selected: boolean) {
   const color = selected ? "#4a7c59" : "#2d6a8f";
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30">
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 8.25 12 18 12 18S24 20.25 24 12C24 5.373 18.627 0 12 0z" fill="${color}"/>
-    <circle cx="12" cy="12" r="5" fill="white"/>
-  </svg>`;
+  const svg = getMapPinSvg(color);
   return new L.DivIcon({
     html: svg,
     className: "",
@@ -72,7 +70,25 @@ function FlyToSelected({
       return;
     }
     const nextZoom = Math.max(map.getZoom(), 13);
-    map.flyTo([selected.latitude, selected.longitude], nextZoom, {
+    const selectedLatLng: [number, number] = [
+      selected.latitude,
+      selected.longitude,
+    ];
+
+    // On mobile, offset center so the popup content lands closer to screen center.
+    const isMobile =
+      typeof window !== "undefined" &&
+      window.matchMedia("(max-width: 639px)").matches;
+
+    const flyTarget = isMobile
+      ? (() => {
+          const point = map.project(selectedLatLng, nextZoom);
+          const offsetCenter = map.unproject(point.add([0, -140]), nextZoom);
+          return [offsetCenter.lat, offsetCenter.lng] as [number, number];
+        })()
+      : selectedLatLng;
+
+    map.flyTo(flyTarget, nextZoom, {
       animate: true,
       duration: 0.35,
     });
@@ -88,6 +104,7 @@ export default function SessionMap({
   className,
 }: Props) {
   const markerRefs = useRef<Record<string, L.Marker | null>>({});
+  const [copiedSlug, setCopiedSlug] = useState<string | null>(null);
 
   const mapItems = useMemo(
     () =>
@@ -212,6 +229,54 @@ export default function SessionMap({
                   {item.generalInfo && (
                     <p className="text-sm text-gray-700">{item.generalInfo}</p>
                   )}
+                  <div className="pt-1">
+                    <div className="flex items-stretch gap-2">
+                      <a
+                        href={
+                          item.googleMapsLink ||
+                          `https://www.google.com/maps/search/${encodeURIComponent(item.address)}`
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex h-9 flex-1 items-center justify-center gap-2 rounded bg-lichen px-3 text-sm font-semibold !text-white no-underline transition hover:bg-lichen/90 hover:!text-white"
+                        title="Get directions"
+                      >
+                        <DirectionsIcon width={14} height={14} />
+                        Directions
+                      </a>
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          const sessionUrl = `${window.location.origin}${window.location.pathname}?session=${item.slug}`;
+                          try {
+                            await navigator.clipboard.writeText(sessionUrl);
+                            setCopiedSlug(item.slug);
+                            setTimeout(() => setCopiedSlug(null), 2000);
+                          } catch (err) {
+                            console.error("Failed to copy:", err);
+                          }
+                        }}
+                        className="inline-flex h-9 w-9 items-center justify-center rounded border border-peat/20 bg-white text-peat/70 transition hover:bg-peat/5 hover:text-peat"
+                        title={
+                          copiedSlug === item.slug ? "Link copied" : "Copy link"
+                        }
+                        aria-label={
+                          copiedSlug === item.slug ? "Link copied" : "Copy link"
+                        }
+                      >
+                        {copiedSlug === item.slug ? (
+                          <CheckIcon />
+                        ) : (
+                          <LinkIcon />
+                        )}
+                      </button>
+                    </div>
+                    {copiedSlug === item.slug && (
+                      <p className="mt-1 text-xs font-semibold text-lichen">
+                        Link copied
+                      </p>
+                    )}
+                  </div>
                 </div>
               </Popup>
             </Marker>

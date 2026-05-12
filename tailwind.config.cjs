@@ -11,7 +11,7 @@ module.exports = {
         harbor: "#2f5f7a",
       },
       fontFamily: {
-        display: ["Fraunces", "Georgia", "serif"],
+        display: ["Lora", "Georgia", "serif"],
         body: ['"Work Sans"', '"Segoe UI"', "sans-serif"],
       },
       boxShadow: {

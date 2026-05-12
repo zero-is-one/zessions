@@ -1,6 +1,7 @@
 import L from "leaflet";
 import { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import { getMapPinSvg } from "./icons";
 
 interface Props {
   lat: number;
@@ -10,10 +11,7 @@ interface Props {
 }
 
 const icon = new L.DivIcon({
-  html: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30">
-    <path d="M12 0C5.373 0 0 5.373 0 12c0 8.25 12 18 12 18S24 20.25 24 12C24 5.373 18.627 0 12 0z" fill="#2d6a8f"/>
-    <circle cx="12" cy="12" r="5" fill="white"/>
-  </svg>`,
+  html: getMapPinSvg("#2d6a8f"),
   className: "",
   iconSize: [24, 30],
   iconAnchor: [12, 30],
