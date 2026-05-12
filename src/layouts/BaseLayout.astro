@@ -11,7 +11,7 @@ const {
   description = 'Find Irish sessions happening around New York City.',
 } = Astro.props;
 
-const isHome = Astro.site ? Astro.url.pathname === new URL(Astro.site).pathname : false;
+const isHome = true;
 const mainClass = isHome
   ? 'mx-auto flex h-dvh w-full flex-col overflow-hidden p-3 sm:p-4 lg:px-5'
   : 'mx-auto w-full max-w-6xl px-4 pb-14 pt-8 sm:px-6 lg:px-8';
