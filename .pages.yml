@@ -46,15 +46,16 @@ content:
         label: General Info
         type: rich-text
         required: false
-      - name: startDateTime
-        label: Start Date Time
-        type: date
-      - name: endDateTime
-        label: End Date Time
-        type: date
+      - name: startTime
+        label: Start Time
+        type: string
+      - name: endTime
+        label: End Time
+        type: string
       - name: description
         label: Description
         type: text
+        hidden: true
   - name: settings
     label: Settings
     type: file

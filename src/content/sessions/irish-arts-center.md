@@ -10,6 +10,6 @@ alerts: No alerts.
 generalInfo: Free evening of traditional Irish music and community. Slow session
   (beginners welcome) 6–8pm; traditional session 8–11pm. The Devlin Café is open
   all night. Audience welcome at any time.
-startDateTime: 2026-05-15
-endDateTime: 2026-05-15
+startTime: "6pm"
+endTime: "11pm"
 ---

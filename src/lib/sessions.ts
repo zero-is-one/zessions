@@ -1,18 +1,8 @@
 import type { CollectionEntry } from "astro:content";
 import type { TimeOfDay, UiSession } from "../components/types";
+import { guessTimeOfDay } from "./time";
 
 export type SessionEntry = CollectionEntry<"sessions">;
-
-function getTimeOfDay(startTime: string | undefined): TimeOfDay {
-  if (!startTime) return "evening";
-  const [hStr, mStr] = startTime.split(":");
-  const h = parseInt(hStr, 10);
-  const m = parseInt(mStr ?? "0", 10);
-  const mins = h * 60 + m;
-  if (mins < 17 * 60) return "afternoon";
-  if (mins < 20 * 60) return "evening";
-  return "late-night";
-}
 
 export function mapSessions(sessions: SessionEntry[]): UiSession[] {
   return sessions
@@ -28,7 +18,7 @@ export function mapSessions(sessions: SessionEntry[]): UiSession[] {
       generalInfo: session.data.generalInfo,
       startTime: session.data.startTime,
       endTime: session.data.endTime,
-      timeOfDay: getTimeOfDay(session.data.startTime),
+      timeOfDay: guessTimeOfDay(session.data.startTime),
       schedule: session.data.schedule,
       day: session.data.day,
     }))

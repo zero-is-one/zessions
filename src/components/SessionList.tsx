@@ -5,6 +5,7 @@ import {
   DAY_SHORT_LABELS,
   DAY_TEXT_CLASS,
 } from "./dayMeta";
+import { formatCompactTime, guessTimeToMinutes } from "../lib/time";
 import type { UiSession } from "./types";
 
 interface Props {
@@ -12,16 +13,6 @@ interface Props {
   selectedSlug?: string | null;
   onSelectSession?: (slug: string) => void;
   className?: string;
-}
-
-function formatTime(t: string): string {
-  const [hStr, mStr] = t.split(":");
-  let h = parseInt(hStr, 10);
-  const m = parseInt(mStr, 10);
-  const ampm = h < 12 || h === 0 ? "am" : "pm";
-  if (h === 0) h = 12;
-  else if (h > 12) h -= 12;
-  return m === 0 ? `${h}${ampm}` : `${h}:${mStr}${ampm}`;
 }
 
 function toMobileVenueTitle(title: string): string {
@@ -70,17 +61,13 @@ export default function SessionList({
     return <p className="glass p-6 text-sm text-peat/70">No sessions found.</p>;
   }
 
-  function toMinutes(t: string): number {
-    const [hStr, mStr] = t.split(":");
-    const h = parseInt(hStr ?? "0", 10);
-    const m = parseInt(mStr ?? "0", 10);
-    return h * 60 + m;
-  }
-
   function sortSessions(a: UiSession, b: UiSession): number {
-    const timeA = toMinutes(a.startTime);
-    const timeB = toMinutes(b.startTime);
-    if (timeA !== timeB) return timeA - timeB;
+    const timeA = guessTimeToMinutes(a.startTime);
+    const timeB = guessTimeToMinutes(b.startTime);
+    if (timeA !== null && timeB !== null && timeA !== timeB)
+      return timeA - timeB;
+    if (timeA !== null && timeB === null) return -1;
+    if (timeA === null && timeB !== null) return 1;
 
     const scheduleA = SCHEDULE_ORDER.indexOf(a.schedule);
     const scheduleB = SCHEDULE_ORDER.indexOf(b.schedule);
@@ -136,8 +123,8 @@ export default function SessionList({
             )}
             <span className="text-peat/40">-</span>
             <span className="text-peat/75">
-              {formatTime(item.startTime)}
-              {item.endTime ? `-${formatTime(item.endTime)}` : ""}
+              {formatCompactTime(item.startTime)}
+              {item.endTime ? ` - ${formatCompactTime(item.endTime)}` : ""}
             </span>
           </div>
         </button>
