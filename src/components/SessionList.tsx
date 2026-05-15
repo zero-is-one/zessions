@@ -73,7 +73,8 @@ export default function SessionList({
     const scheduleB = SCHEDULE_ORDER.indexOf(b.schedule);
     if (scheduleA !== scheduleB) return scheduleA - scheduleB;
 
-    return a.title.localeCompare(b.title);
+    // Use title if present, otherwise locationName
+    return (a.title || a.locationName).localeCompare(b.title || b.locationName);
   }
 
   const groupedByDay = DAY_ORDER.map((day) => ({
@@ -84,7 +85,8 @@ export default function SessionList({
   const noDayItems = sessions.filter((item) => !item.day).sort(sortSessions);
 
   function renderRow(item: UiSession) {
-    const displayTitle = item.title || item.locationName;
+    // Always use title if present, even if it matches locationName
+    const displayTitle = item.title ? item.title : item.locationName;
     const mobileTitle = toMobileVenueTitle(displayTitle);
 
     return (

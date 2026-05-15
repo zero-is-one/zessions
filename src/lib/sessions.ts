@@ -8,7 +8,7 @@ export function mapSessions(sessions: SessionEntry[]): UiSession[] {
   return sessions
     .map((session) => ({
       slug: session.id,
-      title: session.data.title ?? session.data.locationName,
+      title: session.data.title ? session.data.title : undefined,
       locationName: session.data.locationName,
       address: session.data.address,
       googleMapsLink: session.data.googleMapsLink,
@@ -22,5 +22,7 @@ export function mapSessions(sessions: SessionEntry[]): UiSession[] {
       schedule: session.data.schedule,
       day: session.data.day,
     }))
-    .sort((a, b) => a.title.localeCompare(b.title));
+    .sort((a, b) =>
+      (a.title || a.locationName).localeCompare(b.title || b.locationName),
+    );
 }

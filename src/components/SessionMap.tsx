@@ -3,6 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import L from "leaflet";
 import { DAY_LABELS, DAY_TEXT_CLASS } from "./dayMeta";
 import { CheckIcon, DirectionsIcon, getMapPinSvg, LinkIcon } from "./icons";
+import { formatCompactTime } from "../lib/time";
 import type { UiSession } from "./types";
 
 interface Props {
@@ -12,15 +13,7 @@ interface Props {
   className?: string;
 }
 
-function formatTime(t: string): string {
-  const [hStr, mStr] = t.split(":");
-  let h = parseInt(hStr, 10);
-  const m = parseInt(mStr, 10);
-  const ampm = h < 12 || h === 0 ? "am" : "pm";
-  if (h === 0) h = 12;
-  else if (h > 12) h -= 12;
-  return m === 0 ? `${h}${ampm}` : `${h}:${mStr}${ampm}`;
-}
+// Use shared time formatting
 
 function makeIcon(selected: boolean) {
   const color = selected ? "#4a7c59" : "#2d6a8f";
@@ -184,11 +177,21 @@ export default function SessionMap({
             >
               <Popup minWidth={240} maxWidth={300}>
                 <div className="space-y-2 py-1">
-                  <p className="text-base font-bold leading-tight text-gray-900">
-                    {item.title || item.locationName}
-                  </p>
-                  {item.title && item.title !== item.locationName && (
-                    <p className="text-sm text-gray-600">{item.locationName}</p>
+                  {item.title ? (
+                    <>
+                      <p className="text-base font-bold leading-tight text-gray-900">
+                        {item.title}
+                      </p>
+                      {item.locationName && (
+                        <p className="text-sm text-gray-600">
+                          {item.locationName}
+                        </p>
+                      )}
+                    </>
+                  ) : (
+                    <p className="text-base font-bold leading-tight text-gray-900">
+                      {item.locationName}
+                    </p>
                   )}
                   {item.address && (
                     <a
@@ -204,8 +207,10 @@ export default function SessionMap({
                     </a>
                   )}
                   <p className="text-sm text-gray-700">
-                    {formatTime(item.startTime)}
-                    {item.endTime ? ` – ${formatTime(item.endTime)}` : ""}
+                    {formatCompactTime(item.startTime)}
+                    {item.endTime
+                      ? ` – ${formatCompactTime(item.endTime)}`
+                      : ""}
                     {" · "}
                     {item.schedule.charAt(0).toUpperCase() +
                       item.schedule.slice(1)}
@@ -221,9 +226,8 @@ export default function SessionMap({
                     )}
                   </p>
                   {item.alerts && item.alerts !== "No alerts." && (
-                    <p className="flex items-start gap-1 bg-red-600 px-2 py-1 text-xs font-medium text-white">
-                      <span aria-hidden="true">&#9888;</span>
-                      <span>{item.alerts}</span>
+                    <p className="bg-red-100 text-red-700 px-2 py-1 text-xs font-normal rounded">
+                      {item.alerts}
                     </p>
                   )}
                   {item.generalInfo && (
