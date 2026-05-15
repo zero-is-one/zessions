@@ -52,6 +52,13 @@ content:
       - name: endTime
         label: End Time
         type: string
+      - name: schedule
+        label: Schedule
+        type: select
+        options:
+          - weekly
+          - monthly
+          - other
       - name: description
         label: Description
         type: text

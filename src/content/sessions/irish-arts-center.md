@@ -12,4 +12,5 @@ generalInfo: Free evening of traditional Irish music and community. Slow session
   all night. Audience welcome at any time.
 startTime: "6pm"
 endTime: "11pm"
+schedule: "other"
 ---
