@@ -15,7 +15,7 @@ export default function LogoLockup() {
         aria-hidden="true"
         className="inline-flex items-center justify-center px-0.5 text-lichen/90"
       >
-        *
+        <LeafSeparatorIcon className="h-5 w-5" />
       </span>
       <span className="flex flex-col justify-between h-full text-peat/85">
         <span className="flex-1" />

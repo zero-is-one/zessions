@@ -131,29 +131,16 @@ export function LeafSeparatorIcon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
     >
-      <path
-        d="M12 2.5V21.5"
+      <g
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="2.25"
         strokeLinecap="round"
-        opacity="0.7"
-      />
-      <circle cx="12" cy="4.3" r="1.1" fill="currentColor" opacity="0.7" />
-      <circle cx="12" cy="19.7" r="1.1" fill="currentColor" opacity="0.7" />
-      <path
-        d="M18.4 8.9C15.3 8.9 12.9 10 11.4 11.7C10.1 13.2 9.6 15.2 9.9 16.9C11.6 17.2 13.6 16.7 15.1 15.4C16.8 13.9 17.9 11.5 17.9 8.4Z"
-        fill="currentColor"
-        fillOpacity="0.2"
-        stroke="currentColor"
-        strokeWidth="1.2"
         strokeLinejoin="round"
-      />
-      <path
-        d="M11.2 15.2C12.5 13.9 14.1 12.5 16.2 11.2"
-        stroke="currentColor"
-        strokeWidth="1.1"
-        strokeLinecap="round"
-      />
+      >
+        <line x1="12" y1="4" x2="12" y2="20" />
+        <line x1="5.07" y1="8" x2="18.93" y2="16" />
+        <line x1="5.07" y1="16" x2="18.93" y2="8" />
+      </g>
     </svg>
   );
 }
