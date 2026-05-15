@@ -2,7 +2,7 @@ import { LeafSeparatorIcon } from "./icons";
 
 export default function LogoLockup() {
   return (
-    <span className="inline-flex items-stretch gap-1" aria-hidden="true">
+    <span className="inline-flex items-stretch gap-1.5" aria-hidden="true">
       <span className="flex  flex-col leading-none ">
         <span className="block w-full font-semibold sm:text-[1rem]">
           FIND A
@@ -13,9 +13,9 @@ export default function LogoLockup() {
       </span>
       <span
         aria-hidden="true"
-        className="inline-flex items-center justify-center px-0.5 text-lichen"
+        className="inline-flex items-center justify-center px-0.5 text-lichen/90"
       >
-        <LeafSeparatorIcon className="h-4 w-4" />
+        <LeafSeparatorIcon className="h-5 w-5" />
       </span>
       <span className="flex flex-col justify-between h-full text-peat/85">
         <span className="flex-1" />

@@ -132,17 +132,26 @@ export function LeafSeparatorIcon({ className }: { className?: string }) {
       className={className}
     >
       <path
-        d="M19.2 4.8C13.9 5.2 9.9 7.1 7.4 10.2C5.2 12.9 4.3 16.3 4.7 19.2C7.6 19.6 11.1 18.7 13.8 16.5C16.9 14 18.8 10 19.2 4.8Z"
-        fill="currentColor"
-        fillOpacity="0.22"
+        d="M12 2.5V21.5"
         stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        opacity="0.7"
+      />
+      <circle cx="12" cy="4.3" r="1.1" fill="currentColor" opacity="0.7" />
+      <circle cx="12" cy="19.7" r="1.1" fill="currentColor" opacity="0.7" />
+      <path
+        d="M18.4 8.9C15.3 8.9 12.9 10 11.4 11.7C10.1 13.2 9.6 15.2 9.9 16.9C11.6 17.2 13.6 16.7 15.1 15.4C16.8 13.9 17.9 11.5 17.9 8.4Z"
+        fill="currentColor"
+        fillOpacity="0.2"
+        stroke="currentColor"
+        strokeWidth="1.2"
         strokeLinejoin="round"
       />
       <path
-        d="M8.2 15.8C10.2 13.9 12.6 11.9 15.7 10"
+        d="M11.2 15.2C12.5 13.9 14.1 12.5 16.2 11.2"
         stroke="currentColor"
-        strokeWidth="1.3"
+        strokeWidth="1.1"
         strokeLinecap="round"
       />
     </svg>
@@ -152,6 +161,7 @@ export function LeafSeparatorIcon({ className }: { className?: string }) {
 export function getMapPinSvg(color: string): string {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="30" viewBox="0 0 24 30">
     <path d="M12 0C5.373 0 0 5.373 0 12c0 8.25 12 18 12 18S24 20.25 24 12C24 5.373 18.627 0 12 0z" fill="${color}"/>
-    <circle cx="12" cy="12" r="5" fill="white"/>
+    <circle cx="12" cy="12" r="10" fill="white" opacity="0.95"/>
+    <text x="12" y="12.2" text-anchor="middle" dominant-baseline="middle" font-size="10.5">☘️</text>
   </svg>`;
 }
