@@ -9,6 +9,9 @@ content:
     path: src/content/sessions
     filename: "{fields.title}.md"
     fields:
+      - name: draft
+        label: Draft
+        type: boolean
       - name: title
         label: Title
         type: string
@@ -24,16 +27,20 @@ content:
       - name: googleMapsLink
         label: Google Maps Link
         type: string
+        hidden: true
         required: false
       - name: latitude
         label: Latitude
         type: number
+        hidden: true
       - name: longitude
         label: Longitude
         type: number
+        hidden: true
       - name: alerts
         label: Alerts Line
         type: text
+        hidden: true
         required: true
       - name: generalInfo
         label: General Info
@@ -48,12 +55,6 @@ content:
       - name: description
         label: Description
         type: text
-      - name: draft
-        label: Draft
-        type: boolean
-      - name: body
-        label: Body
-        type: rich-text
   - name: settings
     label: Settings
     type: file
