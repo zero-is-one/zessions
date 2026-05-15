@@ -59,6 +59,18 @@ content:
           - weekly
           - monthly
           - other
+      - name: day
+        label: Day
+        type: select
+        options:
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+          - sunday
+          - other
       - name: description
         label: Description
         type: text

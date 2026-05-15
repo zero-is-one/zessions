@@ -62,13 +62,17 @@ export function formatCompactTime(input: string | undefined): string {
     if (originalHour < 1 || originalHour > 12) return input;
     const suffix = meridian!.startsWith("p") ? "pm" : "am";
     const hour12 = originalHour % 12 === 0 ? 12 : originalHour % 12;
-    return minute === 0 ? `${hour12}${suffix}` : `${hour12}:${String(minute).padStart(2, "0")}${suffix}`;
+    return minute === 0
+      ? `${hour12}${suffix}`
+      : `${hour12}:${String(minute).padStart(2, "0")}${suffix}`;
   }
 
   if (originalHour > 12 || originalHour === 0) {
     const suffix = originalHour >= 12 ? "pm" : "am";
     const hour12 = originalHour % 12 === 0 ? 12 : originalHour % 12;
-    return minute === 0 ? `${hour12}${suffix}` : `${hour12}:${String(minute).padStart(2, "0")}${suffix}`;
+    return minute === 0
+      ? `${hour12}${suffix}`
+      : `${hour12}:${String(minute).padStart(2, "0")}${suffix}`;
   }
 
   return minute === 0
