@@ -3,11 +3,14 @@ import { getCollection } from 'astro:content';
 import SessionsTabs from '../components/SessionsTabs';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { mapSessions } from '../lib/sessions';
+import { mapSiteSettings } from '../lib/settings';
 
 const allSessions = (await getCollection('sessions')).filter((session: any) => !session.data.draft);
 const sessions = mapSessions(allSessions);
+const allSettings = (await getCollection('settings')).filter((setting: any) => !setting.data.draft);
+const siteSettings = mapSiteSettings(allSettings[0]);
 ---
 
 <BaseLayout title="Find A Session NYC" description="Browse Irish sessions happening around New York.">
-  <SessionsTabs client:only="react" sessions={sessions} />
+  <SessionsTabs client:only="react" sessions={sessions} settings={siteSettings} />
 </BaseLayout>

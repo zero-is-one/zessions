@@ -31,4 +31,30 @@ const sessions = defineCollection({
   }),
 });
 
-export const collections = { sessions };
+const settings = defineCollection({
+  loader: glob({ pattern: "settings.md", base: "./src/content/settings" }),
+  schema: z.object({
+    footerNote: z
+      .string()
+      .default(
+        "We try our best to compile all the NYC sessions. For the latest, visit the",
+      ),
+    aboutTitle: z.string().default("About Find A Session NYC"),
+    aboutIntro: z
+      .string()
+      .default(
+        "Discover weekly sessions at bars and cultural centers featuring authentic Irish music, from slow sessions perfect for beginners to lively traditional sets.",
+      ),
+    aboutSupport: z
+      .string()
+      .default(
+        "Follow the Facebook group and Spotify playlist above for the latest updates and session tunes.",
+      ),
+    aboutFooter: z
+      .string()
+      .default("Made with ♪ for the Irish music community"),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { sessions, settings };

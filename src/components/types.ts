@@ -9,6 +9,14 @@ export type Day =
   | "sunday";
 export type TimeOfDay = "afternoon" | "evening" | "late-night";
 
+export interface SiteSettings {
+  footerNote: string;
+  aboutTitle: string;
+  aboutIntro: string;
+  aboutSupport: string;
+  aboutFooter: string;
+}
+
 export interface UiSession {
   slug: string;
   title?: string;

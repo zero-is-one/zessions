@@ -39,27 +39,12 @@ content:
         label: General Info
         type: rich-text
         required: false
-      - name: recurrenceType
-        label: Recurrence Type
-        type: select
-        required: true
-        options:
-          values: [single, date-list, rrule]
       - name: startDateTime
         label: Start Date Time
         type: date
       - name: endDateTime
         label: End Date Time
         type: date
-      - name: timezone
-        label: Timezone
-        type: string
-        default: America/New_York
-      - name: category
-        label: Category
-        type: select
-        options:
-          values: [irish-session, ceili, concert, workshop]
       - name: description
         label: Description
         type: text
@@ -69,3 +54,38 @@ content:
       - name: body
         label: Body
         type: rich-text
+  - name: settings
+    label: Settings
+    type: file
+    path: src/content/settings/settings.md
+    fields:
+      - name: footerNote
+        label: Footer Note
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+      - name: aboutTitle
+        label: About Title
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+      - name: aboutIntro
+        label: About Intro
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+      - name: aboutSupport
+        label: About Support Line
+        type: rich-text
+        required: false
+        options:
+          format: markdown
+      - name: aboutFooter
+        label: About Footer
+        type: rich-text
+        required: false
+        options:
+          format: markdown

@@ -4,14 +4,22 @@ import { createPortal } from "react-dom";
 import { DAY_SHORT_LABELS } from "./dayMeta";
 import { FacebookIcon, InfoIcon, SpotifyIcon } from "./icons";
 import SessionList from "./SessionList";
-import type { Day, Schedule, TimeOfDay, UiSession } from "./types";
+import type {
+  Day,
+  Schedule,
+  SiteSettings,
+  TimeOfDay,
+  UiSession,
+} from "./types";
 
 const SessionMap = lazy(() => import("./SessionMap"));
 const FACEBOOK_URL = "https://www.facebook.com/groups/NYSessionHub";
-const SPOTIFY_URL = "https://open.spotify.com/search/nyc%20irish%20session";
+const SPOTIFY_URL =
+  "https://open.spotify.com/playlist/7eVRXEdJnWbvJ0ZA16C73v?si=cWW-eaX6Spq6E-QKi_KoGQ&pi=8PPbPWeRTHeT0&nd=1&dlsi=7f97cef4640d427a";
 
 interface Props {
   sessions: UiSession[];
+  settings: SiteSettings;
 }
 
 const SCHEDULES: { key: Schedule; label: string }[] = [
@@ -36,7 +44,7 @@ const TIMES_OF_DAY: { key: TimeOfDay; label: string }[] = [
   { key: "late-night", label: "Late night" },
 ];
 
-export default function SessionsTabs({ sessions }: Props) {
+export default function SessionsTabs({ sessions, settings }: Props) {
   const [scheduleFilter, setScheduleFilter] = useState<Schedule | null>(null);
   const [dayFilter, setDayFilter] = useState<Day | null>(null);
   const [timeFilter, setTimeFilter] = useState<TimeOfDay | null>(null);
@@ -118,6 +126,39 @@ export default function SessionsTabs({ sessions }: Props) {
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [showInfo]);
+
+  const renderInlineMarkdownLink = (text: string) => {
+    const parts: React.ReactNode[] = [];
+    const linkPattern = /\[([^\]]+)\]\(([^)]+)\)/g;
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+
+    while ((match = linkPattern.exec(text))) {
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+
+      parts.push(
+        <a
+          key={`${match.index}-${match[2]}`}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-lichen hover:text-lichen/80 underline"
+        >
+          {match[1]}
+        </a>,
+      );
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    if (lastIndex < text.length) {
+      parts.push(text.slice(lastIndex));
+    }
+
+    return parts.length ? parts : text;
+  };
 
   return (
     <>
@@ -336,17 +377,7 @@ export default function SessionsTabs({ sessions }: Props) {
             />
             <div className="mt-4 text-center text-xs text-peat/70 pb-4">
               <p className="leading-relaxed">
-                We try our best to compile all the NYC sessions. For the latest,
-                visit the{" "}
-                <a
-                  href="https://www.facebook.com/groups/NYSessionHub"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lichen hover:text-lichen/80 underline"
-                >
-                  NYC Sessions Facebook group
-                </a>
-                .
+                {renderInlineMarkdownLink(settings.footerNote)}
               </p>
             </div>
           </div>
@@ -370,7 +401,7 @@ export default function SessionsTabs({ sessions }: Props) {
               >
                 <div className="flex items-center justify-between mb-6">
                   <h2 className="font-display text-xl text-peat">
-                    About Find A Session NYC
+                    {settings.aboutTitle}
                   </h2>
                   <button
                     type="button"
@@ -382,16 +413,11 @@ export default function SessionsTabs({ sessions }: Props) {
                 </div>
 
                 <div className="space-y-4 text-sm text-peat/80 leading-relaxed">
-                  <p>Made by...</p>
-                  <p>Spotify link blah blach </p>
-                  <p>
-                    Discover weekly sessions at bars and cultural centers
-                    featuring authentic Irish music, from slow sessions perfect
-                    for beginners to lively traditional sets.
-                  </p>
+                  <p>{settings.aboutIntro}</p>
+                  <p>{settings.aboutSupport}</p>
 
                   <p className="pt-2 text-xs text-peat/60">
-                    Made with ♪ for the Irish music community
+                    {settings.aboutFooter}
                   </p>
                 </div>
               </div>
