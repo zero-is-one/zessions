@@ -78,7 +78,7 @@ content:
   - name: settings
     label: Settings
     type: file
-    path: src/content/settings/settings.md
+    path: src/content/cities/philly/settings/settings.md
     fields:
       - name: footerNote
         label: Footer Note
