@@ -56,21 +56,23 @@ content:
         label: Schedule
         type: select
         options:
-          - weekly
-          - monthly
-          - other
+          values:
+            - weekly
+            - monthly
+            - other
       - name: day
         label: Day
         type: select
         options:
-          - monday
-          - tuesday
-          - wednesday
-          - thursday
-          - friday
-          - saturday
-          - sunday
-          - other
+          values:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
+            - other
       - name: description
         label: Description
         type: text

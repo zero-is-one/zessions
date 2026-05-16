@@ -55,6 +55,7 @@ export default function SessionsTabs({
   const [timeFilter, setTimeFilter] = useState<TimeOfDay | null>(null);
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
   const [showInfo, setShowInfo] = useState(false);
+  const [showHelp, setShowHelp] = useState(false);
   const isInitialMount = useRef(true);
   const isResetting = useRef(false);
   const hasUserInteracted = useRef(false);
@@ -113,17 +114,18 @@ export default function SessionsTabs({
   }, [filteredSessions, selectedSlug]);
 
   useEffect(() => {
-    if (!showInfo) return;
+    if (!showInfo && !showHelp) return;
 
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setShowInfo(false);
+        setShowHelp(false);
       }
     };
 
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
-  }, [showInfo]);
+  }, [showInfo, showHelp]);
 
   const renderInlineMarkdownLink = (text: string) => {
     const parts: React.ReactNode[] = [];
@@ -169,35 +171,44 @@ export default function SessionsTabs({
                   <span className="sr-only">Find A Session {cityDisplay}</span>
                   <LogoLockup cityDisplay={cityDisplay} />
                 </h1>
-                <div className="shrink-0 flex items-center gap-1 lg:hidden">
-                  <a
-                    href={FACEBOOK_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Facebook"
-                    aria-label="Facebook"
-                    className="inline-flex h-10 w-10 items-center justify-center text-peat/80 hover:text-lichen transition"
-                  >
-                    <FacebookIcon width={20} height={20} />
-                  </a>
-                  <a
-                    href={SPOTIFY_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    title="Spotify"
-                    aria-label="Spotify"
-                    className="inline-flex h-10 w-10 items-center justify-center text-peat/80 hover:text-lichen transition"
-                  >
-                    <SpotifyIcon width={20} height={20} />
-                  </a>
+                <div className="shrink-0 flex flex-col items-end gap-0.5 lg:hidden">
+                  <div className="flex items-center gap-1">
+                    <a
+                      href={FACEBOOK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Facebook"
+                      aria-label="Facebook"
+                      className="inline-flex h-10 w-10 items-center justify-center text-peat/80 hover:text-lichen transition"
+                    >
+                      <FacebookIcon width={20} height={20} />
+                    </a>
+                    <a
+                      href={SPOTIFY_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Spotify"
+                      aria-label="Spotify"
+                      className="inline-flex h-10 w-10 items-center justify-center text-peat/80 hover:text-lichen transition"
+                    >
+                      <SpotifyIcon width={20} height={20} />
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => setShowInfo(true)}
+                      title={`About Find A Session ${cityDisplay}`}
+                      aria-label="Info"
+                      className="inline-flex h-10 w-10 items-center justify-center text-peat/80 hover:text-lichen transition"
+                    >
+                      <InfoIcon width={20} height={20} />
+                    </button>
+                  </div>
                   <button
                     type="button"
-                    onClick={() => setShowInfo(true)}
-                    title={`About Find A Session ${cityDisplay}`}
-                    aria-label="Info"
-                    className="inline-flex h-10 w-10 items-center justify-center text-peat/80 hover:text-lichen transition"
+                    onClick={() => setShowHelp(true)}
+                    className="text-xs font-semibold text-peat/65 underline underline-offset-2 hover:text-lichen transition"
                   >
-                    <InfoIcon width={20} height={20} />
+                    Something wrong?
                   </button>
                 </div>
               </div>
@@ -317,33 +328,42 @@ export default function SessionsTabs({
             </div>
           </div>
 
-          <div className="shrink-0 self-center hidden lg:flex items-center gap-3 text-sm font-semibold">
-            <a
-              href={FACEBOOK_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-9 items-center gap-2 rounded border border-peat/25 px-3 text-peat/80 hover:border-lichen/40 hover:text-lichen transition"
-            >
-              <FacebookIcon width={16} height={16} />
-              Facebook
-            </a>
-            <a
-              href={SPOTIFY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex h-9 items-center gap-2 rounded border border-peat/25 px-3 text-peat/80 hover:border-lichen/40 hover:text-lichen transition"
-            >
-              <SpotifyIcon width={16} height={16} />
-              Spotify
-            </a>
+          <div className="shrink-0 self-center hidden lg:flex flex-col items-end gap-1 text-sm font-semibold">
+            <div className="flex items-center gap-3">
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 items-center gap-2 rounded border border-peat/25 px-3 text-peat/80 hover:border-lichen/40 hover:text-lichen transition"
+              >
+                <FacebookIcon width={16} height={16} />
+                Facebook
+              </a>
+              <a
+                href={SPOTIFY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-9 items-center gap-2 rounded border border-peat/25 px-3 text-peat/80 hover:border-lichen/40 hover:text-lichen transition"
+              >
+                <SpotifyIcon width={16} height={16} />
+                Spotify
+              </a>
+              <button
+                type="button"
+                onClick={() => setShowInfo(true)}
+                title={`About Find A Session ${cityDisplay}`}
+                aria-label="Info"
+                className="inline-flex h-9 w-9 items-center justify-center rounded border border-peat/25 text-peat/80 hover:border-lichen/40 hover:text-lichen transition"
+              >
+                <InfoIcon width={16} height={16} />
+              </button>
+            </div>
             <button
               type="button"
-              onClick={() => setShowInfo(true)}
-              title={`About Find A Session ${cityDisplay}`}
-              aria-label="Info"
-              className="inline-flex h-9 w-9 items-center justify-center rounded border border-peat/25 text-peat/80 hover:border-lichen/40 hover:text-lichen transition"
+              onClick={() => setShowHelp(true)}
+              className="text-xs font-semibold text-peat/65 underline underline-offset-2 hover:text-lichen transition"
             >
-              <InfoIcon width={16} height={16} />
+              Something wrong?
             </button>
           </div>
         </div>
@@ -418,6 +438,49 @@ export default function SessionsTabs({
                     {settings.aboutFooter}
                   </p>
                 </div>
+              </div>
+            </div>
+          </>,
+          document.body,
+        )}
+
+      {showHelp &&
+        createPortal(
+          <>
+            <div
+              className="fixed inset-0 bg-black/30 z-40"
+              onClick={() => setShowHelp(false)}
+            />
+            <div
+              className="fixed inset-0 flex items-center justify-center z-50 p-4"
+              onClick={() => setShowHelp(false)}
+            >
+              <div
+                className="glass rounded-lg p-6 max-w-md w-full"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="font-display text-xl text-peat">
+                    Something wrong?
+                  </h2>
+                  <button
+                    type="button"
+                    className="text-peat/50 hover:text-peat text-2xl leading-none"
+                    onClick={() => setShowHelp(false)}
+                  >
+                    ×
+                  </button>
+                </div>
+                <p className="text-sm text-peat/80 leading-relaxed">
+                  Please email{" "}
+                  <a
+                    href="mailto:help@findasessionnyc.com"
+                    className="text-lichen hover:text-lichen/80 underline"
+                  >
+                    help@findasessionnyc.com
+                  </a>
+                  .
+                </p>
               </div>
             </div>
           </>,

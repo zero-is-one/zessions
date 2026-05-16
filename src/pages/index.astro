@@ -12,6 +12,6 @@ const allSettings = (await getCollection('settings')).filter((setting: any) => !
 const siteSettings = mapSiteSettings(allSettings[0]);
 ---
 
-<BaseLayout title={`Find A Session ${CITY_NAME}`} description={`Browse Irish sessions happening around ${CITY_NAME}.`}>
+<BaseLayout title={`Find A Session * ${CITY_NAME}`} description={`Browse Irish sessions happening around ${CITY_NAME}.`}>
   <SessionsTabs client:only="react" sessions={sessions} settings={siteSettings} cityDisplay={CITY_DISPLAY} />
 </BaseLayout>
