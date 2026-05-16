@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect, useRef, useMemo, useState } from "react";
 import LogoLockup from "./LogoLockup";
 import { createPortal } from "react-dom";
-import { DAY_SHORT_LABELS } from "./dayMeta";
+import { DAY_LABELS, DAY_SHORT_LABELS } from "./dayMeta";
 import { FacebookIcon, InfoIcon, SpotifyIcon } from "./icons";
 import SessionList from "./SessionList";
 import type {
@@ -29,14 +29,14 @@ const SCHEDULES: { key: Schedule; label: string }[] = [
   { key: "other", label: "Other" },
 ];
 
-const DAYS: { key: Day; label: string }[] = [
-  { key: "monday", label: DAY_SHORT_LABELS.monday },
-  { key: "tuesday", label: DAY_SHORT_LABELS.tuesday },
-  { key: "wednesday", label: DAY_SHORT_LABELS.wednesday },
-  { key: "thursday", label: DAY_SHORT_LABELS.thursday },
-  { key: "friday", label: DAY_SHORT_LABELS.friday },
-  { key: "saturday", label: DAY_SHORT_LABELS.saturday },
-  { key: "sunday", label: DAY_SHORT_LABELS.sunday },
+const DAY_KEYS: Day[] = [
+  "monday",
+  "tuesday",
+  "wednesday",
+  "thursday",
+  "friday",
+  "saturday",
+  "sunday",
 ];
 
 const TIMES_OF_DAY: { key: TimeOfDay; label: string }[] = [
@@ -56,6 +56,7 @@ export default function SessionsTabs({
   const [selectedSlug, setSelectedSlug] = useState<string | null>(null);
   const [showInfo, setShowInfo] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(false);
   const isInitialMount = useRef(true);
   const isResetting = useRef(false);
   const hasUserInteracted = useRef(false);
@@ -126,6 +127,17 @@ export default function SessionsTabs({
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [showInfo, showHelp]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 1024px)");
+    const updateIsDesktop = () => setIsDesktop(mediaQuery.matches);
+
+    updateIsDesktop();
+    mediaQuery.addEventListener("change", updateIsDesktop);
+    return () => mediaQuery.removeEventListener("change", updateIsDesktop);
+  }, []);
+
+  const dayLabels = isDesktop ? DAY_LABELS : DAY_SHORT_LABELS;
 
   const renderInlineMarkdownLink = (text: string) => {
     const parts: React.ReactNode[] = [];
@@ -213,7 +225,7 @@ export default function SessionsTabs({
                 </div>
               </div>
 
-              <div className="flex w-full items-center gap-2 lg:w-[40rem] lg:mr-auto">
+              <div className="flex w-full items-center gap-2 lg:w-[32rem] lg:mr-auto">
                 <div className="grid flex-1 grid-cols-3 gap-2">
                   <label className="flex flex-col gap-1 text-xs font-semibold uppercase tracking-[0.08em] text-peat/70">
                     Schedule
@@ -253,9 +265,9 @@ export default function SessionsTabs({
                       className="rounded border border-lichen/50 bg-white/90 px-2 sm:px-3 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-peat focus:border-lichen focus:outline-none h-8 sm:h-10"
                     >
                       <option value="all">Any</option>
-                      {DAYS.map(({ key, label }) => (
-                        <option key={key} value={key}>
-                          {label}
+                      {DAY_KEYS.map((dayKey) => (
+                        <option key={dayKey} value={dayKey}>
+                          {dayLabels[dayKey]}
                         </option>
                       ))}
                     </select>
@@ -326,10 +338,18 @@ export default function SessionsTabs({
                 </button>
               </div>
             </div>
+
           </div>
 
           <div className="shrink-0 self-center hidden lg:flex flex-col items-end gap-1 text-sm font-semibold">
             <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowHelp(true)}
+                className="inline-flex h-9 items-center px-1 text-xs font-semibold text-peat/65 underline underline-offset-2 hover:text-lichen transition"
+              >
+                Something wrong?
+              </button>
               <a
                 href={FACEBOOK_URL}
                 target="_blank"
@@ -358,13 +378,6 @@ export default function SessionsTabs({
                 <InfoIcon width={16} height={16} />
               </button>
             </div>
-            <button
-              type="button"
-              onClick={() => setShowHelp(true)}
-              className="text-xs font-semibold text-peat/65 underline underline-offset-2 hover:text-lichen transition"
-            >
-              Something wrong?
-            </button>
           </div>
         </div>
 
