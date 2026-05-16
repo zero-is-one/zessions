@@ -1,6 +1,10 @@
 import { LeafSeparatorIcon } from "./icons";
 
-export default function LogoLockup() {
+interface Props {
+  cityDisplay: string;
+}
+
+export default function LogoLockup({ cityDisplay }: Props) {
   return (
     <span className="inline-flex items-stretch gap-1.5" aria-hidden="true">
       <span className="flex  flex-col leading-none ">
@@ -23,7 +27,7 @@ export default function LogoLockup() {
           className="text-[2.1rem] font-extrabold leading-none tracking-tight sm:text-[2.5rem]"
           style={{ lineHeight: 1 }}
         >
-          NYC
+          {cityDisplay}
         </span>
         <span className="flex-1" />
       </span>

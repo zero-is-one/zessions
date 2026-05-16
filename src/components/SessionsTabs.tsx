@@ -20,6 +20,7 @@ const SPOTIFY_URL =
 interface Props {
   sessions: UiSession[];
   settings: SiteSettings;
+  cityDisplay: string;
 }
 
 const SCHEDULES: { key: Schedule; label: string }[] = [
@@ -44,7 +45,11 @@ const TIMES_OF_DAY: { key: TimeOfDay; label: string }[] = [
   { key: "late-night", label: "Late night" },
 ];
 
-export default function SessionsTabs({ sessions, settings }: Props) {
+export default function SessionsTabs({
+  sessions,
+  settings,
+  cityDisplay,
+}: Props) {
   const [scheduleFilter, setScheduleFilter] = useState<Schedule | null>(null);
   const [dayFilter, setDayFilter] = useState<Day | null>(null);
   const [timeFilter, setTimeFilter] = useState<TimeOfDay | null>(null);
@@ -168,8 +173,8 @@ export default function SessionsTabs({ sessions, settings }: Props) {
             <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:gap-4">
               <div className="flex w-full items-center gap-2 lg:w-auto lg:flex-none">
                 <h1 className="font-display text-peat flex flex-1 items-center gap-2">
-                  <span className="sr-only">Find A Session NYC</span>
-                  <LogoLockup />
+                  <span className="sr-only">Find A Session {cityDisplay}</span>
+                  <LogoLockup cityDisplay={cityDisplay} />
                 </h1>
                 <div className="shrink-0 flex items-center gap-1 lg:hidden">
                   <a
@@ -195,7 +200,7 @@ export default function SessionsTabs({ sessions, settings }: Props) {
                   <button
                     type="button"
                     onClick={() => setShowInfo(true)}
-                    title="About Find A Session NYC"
+                    title={`About Find A Session ${cityDisplay}`}
                     aria-label="Info"
                     className="inline-flex h-10 w-10 items-center justify-center text-peat/80 hover:text-lichen transition"
                   >
@@ -341,7 +346,7 @@ export default function SessionsTabs({ sessions, settings }: Props) {
             <button
               type="button"
               onClick={() => setShowInfo(true)}
-              title="About Find A Session NYC"
+              title={`About Find A Session ${cityDisplay}`}
               aria-label="Info"
               className="inline-flex h-9 w-9 items-center justify-center rounded border border-peat/25 text-peat/80 hover:border-lichen/40 hover:text-lichen transition"
             >

@@ -6,7 +6,7 @@ content:
   - name: sessions
     label: Sessions TEST
     type: collection
-    path: src/content/nyc/sessions
+    path: src/content/cities/philly/sessions
     filename: "{fields.title}.md"
     fields:
       - name: draft

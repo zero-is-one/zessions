@@ -6,7 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "check": "astro check"
+    "check": "astro check",
+    "fix-pages-yml": "node scripts/fix-pages-yml.js"
   },
   "keywords": [],
   "author": "",
