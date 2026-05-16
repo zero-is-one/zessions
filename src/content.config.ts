@@ -1,8 +1,17 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { readFileSync } from "fs";
+import { resolve } from "path";
+
+const pagesYml = readFileSync(resolve(".pages.yml"), "utf-8");
+const cityMatch = pagesYml.match(/path:\s*src\/content\/(\w+)\/sessions/);
+const city = cityMatch?.[1] ?? process.env.CITY_BRANCH ?? "nyc";
 
 const sessions = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/sessions" }),
+  loader: glob({
+    pattern: "**/*.md",
+    base: `./src/content/cities/${city}/sessions`,
+  }),
   schema: z.object({
     title: z.string().min(1).optional(),
     locationName: z.string().min(1),
@@ -32,7 +41,10 @@ const sessions = defineCollection({
 });
 
 const settings = defineCollection({
-  loader: glob({ pattern: "settings.md", base: "./src/content/settings" }),
+  loader: glob({
+    pattern: "settings.md",
+    base: `./src/content/cities/${city}/settings`,
+  }),
   schema: z.object({
     footerNote: z
       .string()
