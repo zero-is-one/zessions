@@ -6,7 +6,8 @@ export type Day =
   | "thursday"
   | "friday"
   | "saturday"
-  | "sunday";
+  | "sunday"
+  | "other";
 export type TimeOfDay = "afternoon" | "evening" | "late-night";
 
 export interface SiteSettings {

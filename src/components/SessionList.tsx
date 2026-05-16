@@ -82,7 +82,9 @@ export default function SessionList({
     items: sessions.filter((item) => item.day === day).sort(sortSessions),
   })).filter((group) => group.items.length > 0);
 
-  const noDayItems = sessions.filter((item) => !item.day).sort(sortSessions);
+  const noDayItems = sessions
+    .filter((item) => !item.day || item.day === "other")
+    .sort(sortSessions);
 
   function renderRow(item: UiSession) {
     // Always use title if present, even if it matches locationName

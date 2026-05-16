@@ -338,7 +338,6 @@ export default function SessionsTabs({
                 </button>
               </div>
             </div>
-
           </div>
 
           <div className="shrink-0 self-center hidden lg:flex flex-col items-end gap-1 text-sm font-semibold">

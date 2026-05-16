@@ -8,6 +8,7 @@ export const DAY_LABELS: Record<Day, string> = {
   friday: "Friday",
   saturday: "Saturday",
   sunday: "Sunday",
+  other: "Other",
 };
 
 export const DAY_SHORT_LABELS: Record<Day, string> = {
@@ -18,6 +19,7 @@ export const DAY_SHORT_LABELS: Record<Day, string> = {
   friday: "Fri",
   saturday: "Sat",
   sunday: "Sun",
+  other: "Other",
 };
 
 export const DAY_COLOR_HEX: Record<Day, string> = {
@@ -28,6 +30,7 @@ export const DAY_COLOR_HEX: Record<Day, string> = {
   friday: "#dc2626",
   saturday: "#7c3aed",
   sunday: "#be185d",
+  other: "#475569",
 };
 
 export const DAY_TEXT_CLASS: Record<Day, string> = {
@@ -38,4 +41,5 @@ export const DAY_TEXT_CLASS: Record<Day, string> = {
   friday: "text-red-700",
   saturday: "text-violet-700",
   sunday: "text-pink-700",
+  other: "text-slate-700",
 };
