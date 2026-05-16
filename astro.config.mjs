@@ -6,7 +6,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 export default defineConfig({
   site: "https://zero-is-one.github.io",
-  base: isProd ? "/zessions" : "/",
+  base: isProd ? "/find-a-session" : "/",
   output: "static",
   integrations: [react(), mdx()],
 });

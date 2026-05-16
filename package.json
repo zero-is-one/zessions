@@ -1,5 +1,5 @@
 {
-  "name": "zessions",
+  "name": "find-a-session",
   "version": "1.0.0",
   "description": "NYC Irish sessions directory built with Astro and PagesCMS",
   "scripts": {
