@@ -29,6 +29,7 @@ const sessions = defineCollection({
         "friday",
         "saturday",
         "sunday",
+        "other",
       ])
       .optional(),
     draft: z.boolean().default(false),
