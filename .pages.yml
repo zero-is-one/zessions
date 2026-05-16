@@ -6,7 +6,7 @@ content:
   - name: sessions
     label: Sessions TEST
     type: collection
-    path: src/content/cities/philly/sessions
+    path: src/content/cities/nyc/sessions
     filename: "{fields.title}.md"
     fields:
       - name: draft
@@ -78,7 +78,7 @@ content:
   - name: settings
     label: Settings
     type: file
-    path: src/content/cities/philly/settings/settings.md
+    path: src/content/cities/nyc/settings/settings.md
     fields:
       - name: footerNote
         label: Footer Note
