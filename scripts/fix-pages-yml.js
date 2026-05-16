@@ -1,10 +1,10 @@
 // fix-pages-yml.js
 // Updates .pages.yml to use the current branch name for city-specific content paths
-const fs = require("fs");
-const { execSync } = require("child_process");
+import { readFileSync, writeFileSync } from "fs";
+import { execSync } from "child_process";
 
 // Get current branch name
-defaultBranch = "nyc";
+const defaultBranch = "nyc";
 let branch = defaultBranch;
 try {
   branch = execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
@@ -13,7 +13,7 @@ try {
 }
 
 const ymlPath = ".pages.yml";
-let yml = fs.readFileSync(ymlPath, "utf8");
+let yml = readFileSync(ymlPath, "utf8");
 
 // Replace session and settings paths
 const sessionRegex =
@@ -27,5 +27,5 @@ yml = yml.replace(
   `path: src/content/cities/${branch}/settings/settings.md`,
 );
 
-fs.writeFileSync(ymlPath, yml, "utf8");
+writeFileSync(ymlPath, yml, "utf8");
 console.log(`.pages.yml updated for city branch: ${branch}`);
