@@ -1,9 +1,22 @@
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const pagesYmlPath = join(__dirname, "../../.pages.yml");
+const pagesYmlCandidates = [
+  join(process.cwd(), ".pages.yml"),
+  join(__dirname, "../../.pages.yml"),
+];
+const pagesYmlPath = pagesYmlCandidates.find((candidate) =>
+  existsSync(candidate),
+);
+
+if (!pagesYmlPath) {
+  throw new Error(
+    `Could not find .pages.yml. Checked: ${pagesYmlCandidates.join(", ")}`,
+  );
+}
+
 const pagesYml = readFileSync(pagesYmlPath, "utf-8");
 const cityMatch = pagesYml.match(
   /path:\s*src\/content\/cities\/([a-z0-9-]+)\/sessions/i,
