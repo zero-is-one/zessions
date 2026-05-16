@@ -1,4 +1,4 @@
-# Zessions
+# find-a-sesion
 
 Astro + Tailwind + PagesCMS site for tracking Irish sessions around New York City.
 
@@ -27,4 +27,4 @@ npm run preview
 
 - Times are rendered for `America/New_York`.
 - Map uses Leaflet + OpenStreetMap.
-- GitHub Pages base path is currently set to `/zessions` in `astro.config.mjs`.
+- GitHub Pages base path is currently set to `/find-a-sesion` in `astro.config.mjs`.
