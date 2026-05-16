@@ -109,14 +109,7 @@ export default function SessionsTabs({
       isResetting.current = false;
       return;
     }
-    // Only auto-select if user has interacted (clicked filters, selected item, etc)
-    if (
-      hasUserInteracted.current &&
-      (!selectedSlug ||
-        !filteredSessions.some((item) => item.slug === selectedSlug))
-    ) {
-      setSelectedSlug(filteredSessions[0].slug);
-    }
+    // Do not auto-select a session after filtering
   }, [filteredSessions, selectedSlug]);
 
   useEffect(() => {
