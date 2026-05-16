@@ -6,9 +6,9 @@ googleMapsLink: https://www.google.com/maps/search/?api=1&query=Mock+Random+Sess
 latitude: 40.7412
 longitude: -73.9896
 alerts: No alerts.
-generalInfo: Here is is. Demo-only listing. This session simulates random days
-  and times week to week; check social updates for the latest slot. Typical
-  window is around early evening, with occasional late starts.
+generalInfo: " Demo-only listing. This session simulates random days and times
+  week to week; check social updates for the latest slot. Typical window is
+  around early evening, with occasional late starts. Cats"
 startTime: 17:37
 endTime: 22:13
 schedule: other
