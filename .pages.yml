@@ -4,7 +4,7 @@ media:
 
 content:
   - name: sessions
-    label: Sessions
+    label: Sessions TEST
     type: collection
     path: src/content/sessions
     filename: "{fields.title}.md"
