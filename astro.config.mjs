@@ -4,11 +4,9 @@ import react from "@astrojs/react";
 
 import cloudflare from "@astrojs/cloudflare";
 
-const isProd = process.env.NODE_ENV === "production";
-
 export default defineConfig({
-  site: "https://zero-is-one.github.io",
-  base: isProd ? "/find-a-session" : "/",
+  site: "https://findasessionnyc.com",
+  base: "/",
   output: "static",
   integrations: [react(), mdx()],
   adapter: cloudflare(),
