@@ -2,6 +2,8 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 
+import cloudflare from "@astrojs/cloudflare";
+
 const isProd = process.env.NODE_ENV === "production";
 
 export default defineConfig({
@@ -9,4 +11,5 @@ export default defineConfig({
   base: isProd ? "/find-a-session" : "/",
   output: "static",
   integrations: [react(), mdx()],
+  adapter: cloudflare(),
 });
